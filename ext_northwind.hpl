@@ -32,7 +32,7 @@
     </hop>
     <hop>
       <from>input/employee_territory</from>
-      <to>Table output 3</to>
+      <to>output/employee_territory</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -139,7 +139,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Table output 3</name>
+    <name>output/employee_territory</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -150,18 +150,32 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>EmployeeID</column_name>
+        <stream_name>EmployeeID</stream_name>
+      </field>
+      <field>
+        <column_name>TerritoryID</column_name>
+        <stream_name>TerritoryID</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>stg_employee_territory</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -639,14 +653,11 @@ FROM public.territories;</sql>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
-    <return_field/>
     <return_keys>N</return_keys>
     <schema>stg</schema>
     <specify_fields>Y</specify_fields>
     <table>stg_categories</table>
-    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
     <truncate>Y</truncate>
