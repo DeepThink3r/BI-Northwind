@@ -37,47 +37,47 @@
     </hop>
     <hop>
       <from>input/employees</from>
-      <to>Table output 4</to>
+      <to>output/employees</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input/order_details</from>
-      <to>Table output 5</to>
+      <to>output/order_details</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input/orders</from>
-      <to>Table output 7</to>
+      <to>output/orders</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input/products</from>
-      <to>Table output 6</to>
+      <to>output/products</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input/region</from>
-      <to>Table output 9</to>
+      <to>output/region</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input/shippers</from>
-      <to>Table output 8</to>
+      <to>output/shippers</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input/suppliers</from>
-      <to>Table output 10</to>
+      <to>output/suppliers</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input/territory</from>
-      <to>Table output 11</to>
+      <to>output/territory</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Table output 10</name>
+    <name>output/suppliers</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -88,18 +88,72 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>SupplierID</column_name>
+        <stream_name>SupplierID</stream_name>
+      </field>
+      <field>
+        <column_name>CompanyName</column_name>
+        <stream_name>CompanyName</stream_name>
+      </field>
+      <field>
+        <column_name>ContactName</column_name>
+        <stream_name>ContactName</stream_name>
+      </field>
+      <field>
+        <column_name>ContactTitle</column_name>
+        <stream_name>ContactTitle</stream_name>
+      </field>
+      <field>
+        <column_name>Address</column_name>
+        <stream_name>Address</stream_name>
+      </field>
+      <field>
+        <column_name>City</column_name>
+        <stream_name>City</stream_name>
+      </field>
+      <field>
+        <column_name>Region</column_name>
+        <stream_name>Region</stream_name>
+      </field>
+      <field>
+        <column_name>PostalCode</column_name>
+        <stream_name>PostalCode</stream_name>
+      </field>
+      <field>
+        <column_name>Country</column_name>
+        <stream_name>Country</stream_name>
+      </field>
+      <field>
+        <column_name>Phone</column_name>
+        <stream_name>Phone</stream_name>
+      </field>
+      <field>
+        <column_name>Fax</column_name>
+        <stream_name>Fax</stream_name>
+      </field>
+      <field>
+        <column_name>HomePage</column_name>
+        <stream_name>HomePage</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>suppliers</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -108,7 +162,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Table output 11</name>
+    <name>output/territory</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -119,18 +173,36 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>TerritoryID</column_name>
+        <stream_name>TerritoryID</stream_name>
+      </field>
+      <field>
+        <column_name>TerritoryDescription</column_name>
+        <stream_name>TerritoryDescription</stream_name>
+      </field>
+      <field>
+        <column_name>RegionID</column_name>
+        <stream_name>RegionID</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>territory</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -139,7 +211,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>output/employee_territory</name>
+    <name>output/employees</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -157,8 +229,56 @@
         <stream_name>EmployeeID</stream_name>
       </field>
       <field>
-        <column_name>TerritoryID</column_name>
-        <stream_name>TerritoryID</stream_name>
+        <column_name>LastName</column_name>
+        <stream_name>LastName</stream_name>
+      </field>
+      <field>
+        <column_name>FirstName</column_name>
+        <stream_name>FirstName</stream_name>
+      </field>
+      <field>
+        <column_name>Title</column_name>
+        <stream_name>Title</stream_name>
+      </field>
+      <field>
+        <column_name>TitleOfCourtesy</column_name>
+        <stream_name>TitleOfCourtesy</stream_name>
+      </field>
+      <field>
+        <column_name>BirthDate</column_name>
+        <stream_name>BirthDate</stream_name>
+      </field>
+      <field>
+        <column_name>HireDate</column_name>
+        <stream_name>HireDate</stream_name>
+      </field>
+      <field>
+        <column_name>Address</column_name>
+        <stream_name>Address</stream_name>
+      </field>
+      <field>
+        <column_name>City</column_name>
+        <stream_name>City</stream_name>
+      </field>
+      <field>
+        <column_name>Region</column_name>
+        <stream_name>Region</stream_name>
+      </field>
+      <field>
+        <column_name>Country</column_name>
+        <stream_name>Country</stream_name>
+      </field>
+      <field>
+        <column_name>HomePhone</column_name>
+        <stream_name>HomePhone</stream_name>
+      </field>
+      <field>
+        <column_name>Salary</column_name>
+        <stream_name>Salary</stream_name>
+      </field>
+      <field>
+        <column_name>Column14</column_name>
+        <stream_name>Column14</stream_name>
       </field>
     </fields>
     <ignore_errors>N</ignore_errors>
@@ -171,7 +291,7 @@
     <return_keys>N</return_keys>
     <schema>stg</schema>
     <specify_fields>Y</specify_fields>
-    <table>stg_employee_territory</table>
+    <table>employees</table>
     <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
@@ -180,42 +300,11 @@
     <attributes/>
     <GUI>
       <xloc>512</xloc>
-      <yloc>320</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Table output 4</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <commit>1000</commit>
-    <fields>
-</fields>
-    <ignore_errors>N</ignore_errors>
-    <only_when_have_rows>N</only_when_have_rows>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
-    <use_batch>Y</use_batch>
-    <attributes/>
-    <GUI>
-      <xloc>512</xloc>
       <yloc>416</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Table output 5</name>
+    <name>output/order_details</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -226,18 +315,44 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>OrderID</column_name>
+        <stream_name>OrderID</stream_name>
+      </field>
+      <field>
+        <column_name>ProductID</column_name>
+        <stream_name>ProductID</stream_name>
+      </field>
+      <field>
+        <column_name>UnitPrice</column_name>
+        <stream_name>UnitPrice</stream_name>
+      </field>
+      <field>
+        <column_name>Quantity</column_name>
+        <stream_name>Quantity</stream_name>
+      </field>
+      <field>
+        <column_name>Discount</column_name>
+        <stream_name>Discount</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>stg_order_details</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -246,7 +361,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Table output 6</name>
+    <name>output/products</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -257,18 +372,64 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>ProductID</column_name>
+        <stream_name>ProductID</stream_name>
+      </field>
+      <field>
+        <column_name>ProductName</column_name>
+        <stream_name>ProductName</stream_name>
+      </field>
+      <field>
+        <column_name>SupplierID</column_name>
+        <stream_name>SupplierID</stream_name>
+      </field>
+      <field>
+        <column_name>CategoryID</column_name>
+        <stream_name>CategoryID</stream_name>
+      </field>
+      <field>
+        <column_name>QuantityPerUnit</column_name>
+        <stream_name>QuantityPerUnit</stream_name>
+      </field>
+      <field>
+        <column_name>UnitPrice</column_name>
+        <stream_name>UnitPrice</stream_name>
+      </field>
+      <field>
+        <column_name>UnitsInStock</column_name>
+        <stream_name>UnitsInStock</stream_name>
+      </field>
+      <field>
+        <column_name>UnitsOnOrder</column_name>
+        <stream_name>UnitsOnOrder</stream_name>
+      </field>
+      <field>
+        <column_name>ReorderLevel</column_name>
+        <stream_name>ReorderLevel</stream_name>
+      </field>
+      <field>
+        <column_name>Discontinued</column_name>
+        <stream_name>Discontinued</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>products</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -277,7 +438,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Table output 7</name>
+    <name>output/orders</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -288,18 +449,80 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>OrderID</column_name>
+        <stream_name>OrderID</stream_name>
+      </field>
+      <field>
+        <column_name>CustomerID</column_name>
+        <stream_name>CustomerID</stream_name>
+      </field>
+      <field>
+        <column_name>EmployeeID</column_name>
+        <stream_name>EmployeeID</stream_name>
+      </field>
+      <field>
+        <column_name>OrderDate</column_name>
+        <stream_name>OrderDate</stream_name>
+      </field>
+      <field>
+        <column_name>RequiredDate</column_name>
+        <stream_name>RequiredDate</stream_name>
+      </field>
+      <field>
+        <column_name>ShippedDate</column_name>
+        <stream_name>ShippedDate</stream_name>
+      </field>
+      <field>
+        <column_name>ShipVia</column_name>
+        <stream_name>ShipVia</stream_name>
+      </field>
+      <field>
+        <column_name>Freight</column_name>
+        <stream_name>Freight</stream_name>
+      </field>
+      <field>
+        <column_name>ShipName</column_name>
+        <stream_name>ShipName</stream_name>
+      </field>
+      <field>
+        <column_name>ShipAddress</column_name>
+        <stream_name>ShipAddress</stream_name>
+      </field>
+      <field>
+        <column_name>ShipCity</column_name>
+        <stream_name>ShipCity</stream_name>
+      </field>
+      <field>
+        <column_name>ShipRegion</column_name>
+        <stream_name>ShipRegion</stream_name>
+      </field>
+      <field>
+        <column_name>ShipPostalCode</column_name>
+        <stream_name>ShipPostalCode</stream_name>
+      </field>
+      <field>
+        <column_name>ShipCountry</column_name>
+        <stream_name>ShipCountry</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>orders</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -308,7 +531,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Table output 8</name>
+    <name>output/shippers</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -319,18 +542,36 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>ShipperID</column_name>
+        <stream_name>ShipperID</stream_name>
+      </field>
+      <field>
+        <column_name>CompanyName</column_name>
+        <stream_name>CompanyName</stream_name>
+      </field>
+      <field>
+        <column_name>Phone</column_name>
+        <stream_name>Phone</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>shippers</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -339,7 +580,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Table output 9</name>
+    <name>output/region</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -350,18 +591,32 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>RegionID</column_name>
+        <stream_name>RegionID</stream_name>
+      </field>
+      <field>
+        <column_name>RegionDescription</column_name>
+        <stream_name>RegionDescription</stream_name>
+      </field>
+    </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>region</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
@@ -452,7 +707,7 @@ FROM public.employee_territory;</sql>
     <connection>connpsql-northwind</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <sql>SELECT "EmployeeID", "LastName", "FirstName", "Title", "TitleOfCourtesy", "BirthDate", "HireDate", "Address", "City", "Region", "Country", "HomePhone", "Salary", "Column14"
+    <sql>SELECT "EmployeeID", "LastName", "FirstName", "Title", "TitleOfCourtesy", "BirthDate", "HireDate", "Address", "City", "Region", "Country", "HomePhone", "Salary"
 FROM public.employees;</sql>
     <variables_active>N</variables_active>
     <attributes/>
@@ -653,11 +908,14 @@ FROM public.territories;</sql>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
     <schema>stg</schema>
     <specify_fields>Y</specify_fields>
-    <table>stg_categories</table>
+    <table>categories</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
     <truncate>Y</truncate>
@@ -731,11 +989,14 @@ FROM public.territories;</sql>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
     <schema>stg</schema>
     <specify_fields>Y</specify_fields>
-    <table>stg_customers</table>
+    <table>customers</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
     <truncate>Y</truncate>
@@ -744,6 +1005,51 @@ FROM public.territories;</sql>
     <GUI>
       <xloc>512</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>output/employee_territory</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
+    <fields>
+      <field>
+        <column_name>EmployeeID</column_name>
+        <stream_name>EmployeeID</stream_name>
+      </field>
+      <field>
+        <column_name>TerritoryID</column_name>
+        <stream_name>TerritoryID</stream_name>
+      </field>
+    </fields>
+    <ignore_errors>N</ignore_errors>
+    <only_when_have_rows>N</only_when_have_rows>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
+    <return_keys>N</return_keys>
+    <schema>stg</schema>
+    <specify_fields>Y</specify_fields>
+    <table>employee_territory</table>
+    <tablename_field/>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_in_table>Y</tablename_in_table>
+    <truncate>Y</truncate>
+    <use_batch>Y</use_batch>
+    <attributes/>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>320</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
