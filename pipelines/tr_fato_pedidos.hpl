@@ -30,6 +30,11 @@
       <to>remove_preco_unitario</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>input/stg_orders</from>
+      <to>ordernar_id_pedidos</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>input/stg_orders</name>
@@ -98,14 +103,9 @@ FROM stg.order_details;</sql>
     </partitioning>
     <calculation>
       <calc_type>MULTIPLY</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
       <field_a>quantidade</field_a>
       <field_b>preco_unitario</field_b>
-      <field_c/>
       <field_name>val_pedido</field_name>
-      <grouping_symbol/>
       <remove>N</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -134,25 +134,21 @@ FROM stg.order_details;</sql>
         <length>-2</length>
         <name>cod_pedido</name>
         <precision>-2</precision>
-        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>cod_produto</name>
         <precision>-2</precision>
-        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>quantidade</name>
         <precision>-2</precision>
-        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>val_pedido</name>
         <precision>-2</precision>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -160,6 +156,40 @@ FROM stg.order_details;</sql>
     <GUI>
       <xloc>528</xloc>
       <yloc>352</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>ordernar_id_pedidos</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compress>N</compress>
+    <compress_variables/>
+    <directory>${java.io.tmpdir}</directory>
+    <fields>
+      <field>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <name>cod_pedido</name>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <free_memory/>
+    <sort_prefix>out</sort_prefix>
+    <sort_size>1000000</sort_size>
+    <unique_rows>N</unique_rows>
+    <attributes/>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>176</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
