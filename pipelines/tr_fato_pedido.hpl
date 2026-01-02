@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>tr_fato_pedidos</name>
+    <name>tr_fato_pedido</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
     <description/>
     <extended_description/>
@@ -214,6 +214,88 @@ FROM stg.order_details;</sql>
     </GUI>
   </transform>
   <transform>
+    <name>output/fato_pedidos</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
+    <fields>
+      <field>
+        <column_name>cod_pedido</column_name>
+        <stream_name>cod_pedido</stream_name>
+      </field>
+      <field>
+        <column_name>cod_cliente</column_name>
+        <stream_name>cod_cliente</stream_name>
+      </field>
+      <field>
+        <column_name>cod_funcionario</column_name>
+        <stream_name>cod_funcionario</stream_name>
+      </field>
+      <field>
+        <column_name>data_pedido</column_name>
+        <stream_name>data_pedido</stream_name>
+      </field>
+      <field>
+        <column_name>data_desejada</column_name>
+        <stream_name>data_desejada</stream_name>
+      </field>
+      <field>
+        <column_name>data_expedicao</column_name>
+        <stream_name>data_expedicao</stream_name>
+      </field>
+      <field>
+        <column_name>cod_expedidor</column_name>
+        <stream_name>cod_expedidor</stream_name>
+      </field>
+      <field>
+        <column_name>regiao_expedicao</column_name>
+        <stream_name>regiao_expedicao</stream_name>
+      </field>
+      <field>
+        <column_name>pais_extedicao</column_name>
+        <stream_name>pais_extedicao</stream_name>
+      </field>
+      <field>
+        <column_name>cod_produto</column_name>
+        <stream_name>cod_produto</stream_name>
+      </field>
+      <field>
+        <column_name>quantidade</column_name>
+        <stream_name>quantidade</stream_name>
+      </field>
+      <field>
+        <column_name>val_pedido</column_name>
+        <stream_name>val_pedido</stream_name>
+      </field>
+    </fields>
+    <ignore_errors>N</ignore_errors>
+    <only_when_have_rows>N</only_when_have_rows>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <return_keys>N</return_keys>
+    <schema>dw</schema>
+    <specify_fields>Y</specify_fields>
+    <table>fato_pedidos</table>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_in_table>Y</tablename_in_table>
+    <truncate>Y</truncate>
+    <use_batch>Y</use_batch>
+    <attributes/>
+    <GUI>
+      <xloc>1264</xloc>
+      <yloc>272</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>preco_total_pedido</name>
     <type>Calculator</type>
     <description/>
@@ -257,69 +339,89 @@ FROM stg.order_details;</sql>
         <length>-2</length>
         <name>cod_pedido</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>cod_cliente</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>cod_empregado</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>data_pedido</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>data_desejada</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>data_expedicao</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>cod_expedidor</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>regiao_expedicao</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>pais_extedicao</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>cod_pedido_1</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>cod_produto</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>quantidade</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>val_pedido</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>cod_pedido</name>
@@ -330,7 +432,14 @@ FROM stg.order_details;</sql>
         <type>Integer</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>cod_cliente</name>
@@ -341,18 +450,32 @@ FROM stg.order_details;</sql>
         <type>String</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>cod_empregado</name>
         <precision>0</precision>
-        <rename>cod_empregado</rename>
+        <rename>cod_funcionario</rename>
         <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>cod_expedidor</name>
@@ -363,7 +486,14 @@ FROM stg.order_details;</sql>
         <type>Integer</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>regiao_expedicao</name>
@@ -374,7 +504,14 @@ FROM stg.order_details;</sql>
         <type>String</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>pais_extedicao</name>
@@ -385,7 +522,14 @@ FROM stg.order_details;</sql>
         <type>String</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>cod_produto</name>
@@ -396,7 +540,14 @@ FROM stg.order_details;</sql>
         <type>Integer</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>quantidade</name>
@@ -407,7 +558,14 @@ FROM stg.order_details;</sql>
         <type>Integer</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>-2</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>val_pedido</name>
@@ -419,7 +577,13 @@ FROM stg.order_details;</sql>
       </meta>
       <meta>
         <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>data_pedido</name>
@@ -431,7 +595,13 @@ FROM stg.order_details;</sql>
       </meta>
       <meta>
         <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>data_desejada</name>
@@ -443,7 +613,13 @@ FROM stg.order_details;</sql>
       </meta>
       <meta>
         <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <currency_symbol/>
         <date_format_lenient>Y</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>data_expedicao</name>
@@ -544,91 +720,6 @@ FROM stg.order_details;</sql>
     <GUI>
       <xloc>448</xloc>
       <yloc>176</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>output/fato_pedidos</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <commit>1000</commit>
-    <connection>connpsql-northwind</connection>
-    <fields>
-      <field>
-        <column_name>cod_pedido</column_name>
-        <stream_name>cod_pedido</stream_name>
-      </field>
-      <field>
-        <column_name>cod_cliente</column_name>
-        <stream_name>cod_cliente</stream_name>
-      </field>
-      <field>
-        <column_name>cod_empregado</column_name>
-        <stream_name>cod_empregado</stream_name>
-      </field>
-      <field>
-        <column_name>data_pedido</column_name>
-        <stream_name>data_pedido</stream_name>
-      </field>
-      <field>
-        <column_name>data_desejada</column_name>
-        <stream_name>data_desejada</stream_name>
-      </field>
-      <field>
-        <column_name>data_expedicao</column_name>
-        <stream_name>data_expedicao</stream_name>
-      </field>
-      <field>
-        <column_name>cod_expedidor</column_name>
-        <stream_name>cod_expedidor</stream_name>
-      </field>
-      <field>
-        <column_name>regiao_expedicao</column_name>
-        <stream_name>regiao_expedicao</stream_name>
-      </field>
-      <field>
-        <column_name>pais_extedicao</column_name>
-        <stream_name>pais_extedicao</stream_name>
-      </field>
-      <field>
-        <column_name>cod_produto</column_name>
-        <stream_name>cod_produto</stream_name>
-      </field>
-      <field>
-        <column_name>quantidade</column_name>
-        <stream_name>quantidade</stream_name>
-      </field>
-      <field>
-        <column_name>val_pedido</column_name>
-        <stream_name>val_pedido</stream_name>
-      </field>
-    </fields>
-    <ignore_errors>N</ignore_errors>
-    <only_when_have_rows>N</only_when_have_rows>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <return_field/>
-    <return_keys>N</return_keys>
-    <schema>dw</schema>
-    <specify_fields>Y</specify_fields>
-    <table>fato_pedidos</table>
-    <tablename_field/>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_in_table>Y</tablename_in_table>
-    <truncate>Y</truncate>
-    <use_batch>Y</use_batch>
-    <attributes/>
-    <GUI>
-      <xloc>1264</xloc>
-      <yloc>272</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
