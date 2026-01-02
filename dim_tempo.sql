@@ -79,9 +79,5 @@ FROM (
     -- DEFINA AQUI O PERÍODO DE DATAS
     -- ::date converte a string para data
     -- '1 day'::interval define o passo (dia a dia)
-    SELECT generate_series('2017/01/01'::date, '2032/12/31'::date, '1 day'::interval)::date AS datum
+    SELECT generate_series('1996/01/01'::date, '2000/12/31'::date, '1 day'::interval)::date AS datum
 ) t;
-
-select * from dw.dim_tempo
-
-delete from dw.dim_tempo 
