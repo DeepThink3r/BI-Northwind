@@ -51,11 +51,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>remove_cod_pedido1</from>
-      <to>output/fato_pedidos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>input/stg_orders</from>
       <to>removendo o valor NULL de data_expedicao</to>
       <enabled>Y</enabled>
@@ -63,6 +58,11 @@
     <hop>
       <from>removendo o valor NULL de data_expedicao</from>
       <to>ordernar_id_pedidos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>remove_cod_pedido1</from>
+      <to>output/fato_pedidos</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -90,29 +90,6 @@
     <GUI>
       <xloc>928</xloc>
       <yloc>272</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>removendo o valor NULL de data_expedicao</name>
-    <type>NullIf</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>data_expedicao</name>
-        <value>NULL</value>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>448</xloc>
-      <yloc>176</yloc>
     </GUI>
   </transform>
   <transform>
@@ -234,88 +211,6 @@ FROM stg.order_details;</sql>
     <GUI>
       <xloc>720</xloc>
       <yloc>352</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>output/fato_pedidos</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <commit>1000</commit>
-    <connection>connpsql-northwind</connection>
-    <fields>
-      <field>
-        <column_name>cod_pedido</column_name>
-        <stream_name>cod_pedido</stream_name>
-      </field>
-      <field>
-        <column_name>cod_cliente</column_name>
-        <stream_name>cod_cliente</stream_name>
-      </field>
-      <field>
-        <column_name>cod_empregado</column_name>
-        <stream_name>cod_empregado</stream_name>
-      </field>
-      <field>
-        <column_name>data_pedido</column_name>
-        <stream_name>data_pedido</stream_name>
-      </field>
-      <field>
-        <column_name>data_desejada</column_name>
-        <stream_name>data_desejada</stream_name>
-      </field>
-      <field>
-        <column_name>data_expedicao</column_name>
-        <stream_name>data_expedicao</stream_name>
-      </field>
-      <field>
-        <column_name>cod_expedidor</column_name>
-        <stream_name>cod_expedidor</stream_name>
-      </field>
-      <field>
-        <column_name>regiao_expedicao</column_name>
-        <stream_name>regiao_expedicao</stream_name>
-      </field>
-      <field>
-        <column_name>pais_extedicao</column_name>
-        <stream_name>pais_extedicao</stream_name>
-      </field>
-      <field>
-        <column_name>cod_produto</column_name>
-        <stream_name>cod_produto</stream_name>
-      </field>
-      <field>
-        <column_name>quantidade</column_name>
-        <stream_name>quantidade</stream_name>
-      </field>
-      <field>
-        <column_name>val_pedido</column_name>
-        <stream_name>val_pedido</stream_name>
-      </field>
-    </fields>
-    <ignore_errors>N</ignore_errors>
-    <only_when_have_rows>N</only_when_have_rows>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <return_keys>N</return_keys>
-    <schema>dw</schema>
-    <specify_fields>Y</specify_fields>
-    <table>fato_pedidos</table>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_in_table>Y</tablename_in_table>
-    <truncate>Y</truncate>
-    <use_batch>Y</use_batch>
-    <attributes/>
-    <GUI>
-      <xloc>1296</xloc>
-      <yloc>272</yloc>
     </GUI>
   </transform>
   <transform>
@@ -457,39 +352,6 @@ FROM stg.order_details;</sql>
         <type>Integer</type>
       </meta>
       <meta>
-        <date_format_lenient>Y</date_format_lenient>
-        <length>50</length>
-        <lenient_string_to_number>N</lenient_string_to_number>
-        <name>data_pedido</name>
-        <precision>0</precision>
-        <rename>data_pedido</rename>
-        <roundingType>half_even</roundingType>
-        <storage_type/>
-        <type>Timestamp</type>
-      </meta>
-      <meta>
-        <date_format_lenient>Y</date_format_lenient>
-        <length>50</length>
-        <lenient_string_to_number>N</lenient_string_to_number>
-        <name>data_desejada</name>
-        <precision>0</precision>
-        <rename>data_desejada</rename>
-        <roundingType>half_even</roundingType>
-        <storage_type/>
-        <type>Timestamp</type>
-      </meta>
-      <meta>
-        <date_format_lenient>Y</date_format_lenient>
-        <length>50</length>
-        <lenient_string_to_number>N</lenient_string_to_number>
-        <name>data_expedicao</name>
-        <precision>0</precision>
-        <rename>data_expedicao</rename>
-        <roundingType>half_even</roundingType>
-        <storage_type/>
-        <type>Timestamp</type>
-      </meta>
-      <meta>
         <date_format_lenient>N</date_format_lenient>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
@@ -554,6 +416,42 @@ FROM stg.order_details;</sql>
         <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Number</type>
+      </meta>
+      <meta>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>N</date_format_lenient>
+        <length>50</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>data_pedido</name>
+        <precision>0</precision>
+        <rename>data_pedido</rename>
+        <roundingType>half_even</roundingType>
+        <storage_type/>
+        <type>Date</type>
+      </meta>
+      <meta>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>N</date_format_lenient>
+        <length>50</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>data_desejada</name>
+        <precision>0</precision>
+        <rename>data_desejada</rename>
+        <roundingType>half_even</roundingType>
+        <storage_type/>
+        <type>Date</type>
+      </meta>
+      <meta>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>Y</date_format_lenient>
+        <length>50</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>data_expedicao</name>
+        <precision>0</precision>
+        <rename>data_expedicao</rename>
+        <roundingType>half_even</roundingType>
+        <storage_type/>
+        <type>Date</type>
       </meta>
       <remove>
         <name>cod_pedido_1</name>
@@ -623,6 +521,114 @@ FROM stg.order_details;</sql>
     <GUI>
       <xloc>528</xloc>
       <yloc>352</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>removendo o valor NULL de data_expedicao</name>
+    <type>NullIf</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>data_expedicao</name>
+        <value>NULL</value>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>output/fato_pedidos</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <commit>1000</commit>
+    <connection>connpsql-northwind</connection>
+    <fields>
+      <field>
+        <column_name>cod_pedido</column_name>
+        <stream_name>cod_pedido</stream_name>
+      </field>
+      <field>
+        <column_name>cod_cliente</column_name>
+        <stream_name>cod_cliente</stream_name>
+      </field>
+      <field>
+        <column_name>cod_empregado</column_name>
+        <stream_name>cod_empregado</stream_name>
+      </field>
+      <field>
+        <column_name>data_pedido</column_name>
+        <stream_name>data_pedido</stream_name>
+      </field>
+      <field>
+        <column_name>data_desejada</column_name>
+        <stream_name>data_desejada</stream_name>
+      </field>
+      <field>
+        <column_name>data_expedicao</column_name>
+        <stream_name>data_expedicao</stream_name>
+      </field>
+      <field>
+        <column_name>cod_expedidor</column_name>
+        <stream_name>cod_expedidor</stream_name>
+      </field>
+      <field>
+        <column_name>regiao_expedicao</column_name>
+        <stream_name>regiao_expedicao</stream_name>
+      </field>
+      <field>
+        <column_name>pais_extedicao</column_name>
+        <stream_name>pais_extedicao</stream_name>
+      </field>
+      <field>
+        <column_name>cod_produto</column_name>
+        <stream_name>cod_produto</stream_name>
+      </field>
+      <field>
+        <column_name>quantidade</column_name>
+        <stream_name>quantidade</stream_name>
+      </field>
+      <field>
+        <column_name>val_pedido</column_name>
+        <stream_name>val_pedido</stream_name>
+      </field>
+    </fields>
+    <ignore_errors>N</ignore_errors>
+    <only_when_have_rows>N</only_when_have_rows>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
+    <return_keys>N</return_keys>
+    <schema>dw</schema>
+    <specify_fields>Y</specify_fields>
+    <table>fato_pedidos</table>
+    <tablename_field/>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_in_table>Y</tablename_in_table>
+    <truncate>Y</truncate>
+    <use_batch>Y</use_batch>
+    <attributes/>
+    <GUI>
+      <xloc>1264</xloc>
+      <yloc>272</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
