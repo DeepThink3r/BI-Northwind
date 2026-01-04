@@ -60,6 +60,8 @@
       <create_parent_folder>N</create_parent_folder>
       <exec_per_row>N</exec_per_row>
       <filename>${PROJECT_HOME}/pipelines/ext_northwind.hpl</filename>
+      <logext/>
+      <logfile/>
       <loglevel>Basic</loglevel>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -69,7 +71,7 @@
       <set_append_logfile>N</set_append_logfile>
       <set_logfile>N</set_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <parallel>Y</parallel>
+      <parallel>N</parallel>
       <xloc>464</xloc>
       <yloc>112</yloc>
       <attributes_hac/>
@@ -231,13 +233,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>ext_northwind.hpl</from>
-      <to>tr_dim_cliente.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>tr_dim_cliente.hpl</from>
       <to>tr_dim_expedidor.hpl</to>
       <enabled>Y</enabled>
@@ -268,6 +263,13 @@
     <hop>
       <from>tr_fato_pedido.hpl</from>
       <to>Success</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ext_northwind.hpl</from>
+      <to>tr_dim_cliente.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
