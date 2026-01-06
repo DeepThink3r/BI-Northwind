@@ -20,8 +20,10 @@ Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a 
 
 ```/apache_hop/hop-run.sh -j "nome do projeto" -e "nome do ambiente" -r local "/endereco/do/workflow.hwf```
 
+Sabendo disso, é a hora de configurar o crontab:
 
-# Workflow
+```00 05 * * * /apache_hop/hop-run.sh -j "nome do projeto" -e "nome do ambiente" -r local -f "/endereco/do/workflow.hwf" >> /endereco/para/armazenarLog/northwind.txt 2>&1# Workflow```
+
 
 O workflow é composto pelos seguintes pipelines:
 - [ext_northwind](imagens/extracao.png);
