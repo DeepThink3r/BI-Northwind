@@ -26,6 +26,7 @@ O workflow é composto pelos seguintes pipelines:
 - [tr_dim_produto](imagens/tr_dim_produto.png);
 - [tr_fato_pedido](imagens/tr_fato_pedido.png)
 
+
 ![workflow](imagens/workflow.png)
 
 # Camada de BI
