@@ -12,7 +12,7 @@ Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a 
 - RDS-Postgres(AWS) para fazer a cópia e transformação dos dados para o schema de staging(stg) e data warehouse(dw) sucessivamente;
 - Apache Hop em servidor local como ferramenta de ETL;
 - Metabase hospedado em uma instância EC2 da Amazon;
-- Crontab para rodar o workflow do Apache Hop periódicamente;
+- Crontab para rodar o workflow do Apache Hop periodicamente;
 
 <img width="782" height="505" alt="image" src="https://github.com/user-attachments/assets/0fcc45ed-92f3-49f9-a9c2-595f7645a618" />
 
