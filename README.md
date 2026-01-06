@@ -70,3 +70,9 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
   - Evolução de pedidos;
   - Visão analítica de pedidos;
 
+<img width="1851" height="816" alt="image" src="https://github.com/user-attachments/assets/67216189-3a16-4639-b9a0-b7bde89ba12a" />
+<img width="1847" height="501" alt="image" src="https://github.com/user-attachments/assets/6b8f6a68-37d6-477e-a87c-3740daf6eba0" />
+<img width="1850" height="751" alt="image" src="https://github.com/user-attachments/assets/9da70de0-30ff-4488-a9ad-2279a9ffc5f0" />
+
+
+
