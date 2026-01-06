@@ -16,6 +16,10 @@ Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a 
 
 <img width="782" height="505" alt="image" src="https://github.com/user-attachments/assets/0fcc45ed-92f3-49f9-a9c2-595f7645a618" />
 
+## Como rodar um workflow ou pipeline do Apache Hop no terminal?
+
+```/apache_hop/hop-run.sh -j "nome do projeto" -e "nome do ambiente" -r local "/endereco/do/workflow.hwf```
+
 
 # Workflow
 
