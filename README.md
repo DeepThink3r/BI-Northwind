@@ -44,5 +44,29 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
 
 <img width="901" height="723" alt="image" src="https://github.com/user-attachments/assets/3263d90b-8d7e-49c3-9a30-ab91c57b403e" />
 
-## Indicadores
+## Requisitos
+
+- O dashboard Analise de pedidos contempla os seguintes filtros:
+  - Período (período de análise do pedido);
+  - Categoria do produto;
+  - Vendedor;
+  - Cliente;
+  - Expedidor(responsável pela entrega do pedido);
+
+- Os KPIs analisados foram:
+  - Valor total faturado de pedidos;
+  - Ticket médio de faturamento por pedidos;
+  - Quantidade total de pedidos;
+  - Quantidade de itens vendidos;
+  - Quantidade média de itens por cesta de pedido;
+  - OTIF(On-Time in Full);
+  - Lead-Time;
+  - Em picking;
+
+- Visões:
+  - Venda de produtos ativos versus descontinuados;
+  - Evolução do faturamento;
+  - Ranking de produtos mais vendidos;
+  - Evolução de pedidos;
+  - Visão analítica de pedidos;
 
