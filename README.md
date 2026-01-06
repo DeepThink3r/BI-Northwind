@@ -26,7 +26,6 @@ O workflow é composto pelos seguintes pipelines:
 - [tr_dim_produto](imagens/tr_dim_produto.png);
 - [tr_fato_pedido](imagens/tr_fato_pedido.png)
 
-
 ![workflow](imagens/workflow.png)
 
 # Camada de BI
@@ -44,5 +43,5 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
 
 <img width="901" height="723" alt="image" src="https://github.com/user-attachments/assets/3263d90b-8d7e-49c3-9a30-ab91c57b403e" />
 
-
+## Indicadores
 
