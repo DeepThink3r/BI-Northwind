@@ -16,6 +16,8 @@ Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a 
 
 <img width="787" height="497" alt="image" src="https://github.com/user-attachments/assets/71a5576c-d2ce-4894-b260-6c9779cd3092" />
 
+
+
 # Camada de BI
 
 Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
@@ -25,7 +27,9 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
   - Dim_Expedidor
   - Dim_Produto
   - Dim_Funcionario
-  - Fato_Pedido
+
+- Fato
+  - Dim_Pedido
 
 <img width="901" height="723" alt="image" src="https://github.com/user-attachments/assets/3263d90b-8d7e-49c3-9a30-ab91c57b403e" />
 
