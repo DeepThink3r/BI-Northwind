@@ -16,7 +16,17 @@ Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a 
 
 <img width="787" height="497" alt="image" src="https://github.com/user-attachments/assets/71a5576c-d2ce-4894-b260-6c9779cd3092" />
 
+# Workflow
 
+O workflow é composto pelos seguintes pipelines:
+- [ext_northwind](imagens/extracao.png);
+- [tr_dim_cliente](imagens/tr_dim_cliente.png)
+- [tr_dim_expedidor](imagens/tr_dim_expedidor.png);
+- [tr_dim_funcionario(vendedor)](imagens/tr_dim_funcionario.png);
+- [tr_dim_produto](imagens/tr_dim_produto.png);
+- [tr_fato_pedido](imagens/tr_fato_pedido.png)
+
+![workflow](imagens/workflow.png)
 
 # Camada de BI
 
