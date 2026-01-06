@@ -22,6 +22,11 @@
   <order>
     <hop>
       <from>input/stg_shippers</from>
+      <to>data_execucao</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>data_execucao</from>
       <to>output/dim_expedidor</to>
       <enabled>Y</enabled>
     </hop>
@@ -72,6 +77,10 @@ FROM stg.shippers;</sql>
         <column_name>nome_empresa</column_name>
         <stream_name>nome_empresa</stream_name>
       </field>
+      <field>
+        <column_name>data_execucao</column_name>
+        <stream_name>data_execucao</stream_name>
+      </field>
     </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
@@ -91,7 +100,30 @@ FROM stg.shippers;</sql>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
-      <xloc>464</xloc>
+      <xloc>560</xloc>
+      <yloc>304</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>data_execucao</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>data_execucao</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>416</xloc>
       <yloc>304</yloc>
     </GUI>
   </transform>

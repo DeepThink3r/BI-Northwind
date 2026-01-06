@@ -36,11 +36,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Merge join</from>
-      <to>remove_cod_categoria1</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>remove_cod_categoria1</from>
       <to>output/dim_produtos</to>
       <enabled>Y</enabled>
@@ -53,6 +48,16 @@
     <hop>
       <from>Value mapper</from>
       <to>ordenar_cod_categoria</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join</from>
+      <to>data_execucao</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>data_execucao</from>
+      <to>remove_cod_categoria1</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -130,7 +135,7 @@ FROM stg.categories;
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
-      <xloc>240</xloc>
+      <xloc>144</xloc>
       <yloc>368</yloc>
     </GUI>
   </transform>
@@ -262,6 +267,10 @@ FROM stg.products</sql>
         <column_name>descricao</column_name>
         <stream_name>descricao</stream_name>
       </field>
+      <field>
+        <column_name>data_execucao</column_name>
+        <stream_name>data_execucao</stream_name>
+      </field>
     </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
@@ -281,7 +290,7 @@ FROM stg.products</sql>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
-      <xloc>1072</xloc>
+      <xloc>1216</xloc>
       <yloc>304</yloc>
     </GUI>
   </transform>
@@ -301,16 +310,19 @@ FROM stg.products</sql>
         <length>-2</length>
         <name>cod_produto</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>nome_produto</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>cod_categoria</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
@@ -322,14 +334,29 @@ FROM stg.products</sql>
         <length>-2</length>
         <name>nome_categoria</name>
         <precision>-2</precision>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
         <name>descricao</name>
         <precision>-2</precision>
+        <rename/>
+      </field>
+      <field>
+        <length>-2</length>
+        <name>data_execucao</name>
+        <precision>-2</precision>
+        <rename/>
       </field>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>cod_produto</name>
@@ -340,7 +367,14 @@ FROM stg.products</sql>
         <type>Integer</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>nome_produto</name>
@@ -351,7 +385,14 @@ FROM stg.products</sql>
         <type>String</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>9</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>cod_categoria</name>
@@ -362,7 +403,14 @@ FROM stg.products</sql>
         <type>Integer</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>50</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>nome_categoria</name>
@@ -373,7 +421,14 @@ FROM stg.products</sql>
         <type>String</type>
       </meta>
       <meta>
+        <conversion_mask/>
+        <currency_symbol/>
         <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
         <length>64</length>
         <lenient_string_to_number>N</lenient_string_to_number>
         <name>descricao</name>
@@ -383,11 +438,52 @@ FROM stg.products</sql>
         <storage_type/>
         <type>String</type>
       </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>-2</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>data_execucao</name>
+        <precision>-2</precision>
+        <rename>data_execucao</rename>
+        <roundingType>half_even</roundingType>
+        <storage_type/>
+        <type>Timestamp</type>
+      </meta>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
+      <xloc>1024</xloc>
+      <yloc>304</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>data_execucao</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>data_execucao</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>848</xloc>
       <yloc>304</yloc>
     </GUI>
   </transform>
