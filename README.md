@@ -14,7 +14,8 @@ Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a 
 - Metabase hospedado em uma instância EC2 da Amazon;
 - Crontab para rodar o workflow do Apache Hop periódicamente;
 
-<img width="787" height="497" alt="image" src="https://github.com/user-attachments/assets/71a5576c-d2ce-4894-b260-6c9779cd3092" />
+<img width="782" height="505" alt="image" src="https://github.com/user-attachments/assets/0fcc45ed-92f3-49f9-a9c2-595f7645a618" />
+
 
 # Workflow
 
