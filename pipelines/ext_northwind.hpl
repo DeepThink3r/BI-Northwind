@@ -91,7 +91,7 @@
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "CategoryID", "CategoryName", "Description"
-FROM public.categories;</sql>
+FROM categories;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -114,7 +114,7 @@ FROM public.categories;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "CustomerID", "CompanyName", "ContactName", "ContactTitle", "Address", "City", "Region", "PostalCode", "Country", "Phone", "Fax"
-FROM public.customers;</sql>
+FROM customers;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -137,7 +137,7 @@ FROM public.customers;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "EmployeeID", "TerritoryID"
-FROM public.employee_territory;</sql>
+FROM employee_territory;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -160,7 +160,7 @@ FROM public.employee_territory;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "EmployeeID", "LastName", "FirstName", "Title", "TitleOfCourtesy", "BirthDate", "HireDate", "Address", "City", "Region", "Country", "HomePhone", "Salary"
-FROM public.employees;</sql>
+FROM employees;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -183,7 +183,7 @@ FROM public.employees;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "OrderID", "ProductID", "UnitPrice", "Quantity", "Discount"
-FROM public.order_details;</sql>
+FROM order_details;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -206,7 +206,7 @@ FROM public.order_details;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "OrderID", "CustomerID", "EmployeeID", "OrderDate", "RequiredDate", "ShippedDate", "ShipVia", "Freight", "ShipName", "ShipAddress", "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry"
-FROM public.orders;</sql>
+FROM orders;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -229,7 +229,7 @@ FROM public.orders;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "ProductID", "ProductName", "SupplierID", "CategoryID", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder", "ReorderLevel", "Discontinued"
-FROM public.products;</sql>
+FROM products;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -252,7 +252,7 @@ FROM public.products;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "RegionID", "RegionDescription"
-FROM public.region;</sql>
+FROM region;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -275,7 +275,7 @@ FROM public.region;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "ShipperID", "CompanyName", "Phone"
-FROM public.shippers;</sql>
+FROM shippers;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -298,7 +298,7 @@ FROM public.shippers;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "SupplierID", "CompanyName", "ContactName", "ContactTitle", "Address", "City", "Region", "PostalCode", "Country", "Phone", "Fax", "HomePage"
-FROM public.suppliers;</sql>
+FROM suppliers;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -321,7 +321,7 @@ FROM public.suppliers;</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "TerritoryID", "TerritoryDescription", "RegionID"
-FROM public.territories;</sql>
+FROM territories;</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
