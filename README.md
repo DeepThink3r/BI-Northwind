@@ -28,7 +28,6 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
   - Fato_Pedido
 
 <img width="901" height="723" alt="image" src="https://github.com/user-attachments/assets/3263d90b-8d7e-49c3-9a30-ab91c57b403e" />
-<img width="901" height="723" alt="image" src="https://github.com/user-attachments/assets/e4e06c22-504e-4ee8-b8d4-12a18e3eb864" />
 
 
 
