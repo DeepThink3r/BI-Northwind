@@ -98,6 +98,29 @@
     </GUI>
   </transform>
   <transform>
+    <name>data_execucao</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>data_execucao</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1072</xloc>
+      <yloc>272</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>input/stg_orders</name>
     <type>TableInput</type>
     <description/>
@@ -280,16 +303,23 @@ FROM stg.order_details;</sql>
         <column_name>val_pedido</column_name>
         <stream_name>val_pedido</stream_name>
       </field>
+      <field>
+        <column_name>data_execucao</column_name>
+        <stream_name>data_execucao</stream_name>
+      </field>
     </fields>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
     <schema>dw</schema>
     <specify_fields>Y</specify_fields>
     <table>fato_pedidos</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
     <truncate>Y</truncate>
@@ -438,7 +468,6 @@ FROM stg.order_details;</sql>
         <name>cod_pedido</name>
         <precision>0</precision>
         <rename>cod_pedido</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
@@ -456,7 +485,6 @@ FROM stg.order_details;</sql>
         <name>cod_cliente</name>
         <precision>-2</precision>
         <rename>cod_cliente</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>String</type>
       </meta>
@@ -474,7 +502,6 @@ FROM stg.order_details;</sql>
         <name>cod_empregado</name>
         <precision>0</precision>
         <rename>cod_funcionario</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
@@ -492,7 +519,6 @@ FROM stg.order_details;</sql>
         <name>cod_expedidor</name>
         <precision>0</precision>
         <rename>cod_expedidor</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
@@ -510,7 +536,6 @@ FROM stg.order_details;</sql>
         <name>regiao_expedicao</name>
         <precision>-2</precision>
         <rename>regiao_expedicao</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>String</type>
       </meta>
@@ -528,7 +553,6 @@ FROM stg.order_details;</sql>
         <name>pais_extedicao</name>
         <precision>-2</precision>
         <rename>pais_extedicao</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>String</type>
       </meta>
@@ -546,7 +570,6 @@ FROM stg.order_details;</sql>
         <name>cod_produto</name>
         <precision>0</precision>
         <rename>cod_produto</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
@@ -564,7 +587,6 @@ FROM stg.order_details;</sql>
         <name>quantidade</name>
         <precision>0</precision>
         <rename>quantidade</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
@@ -582,7 +604,6 @@ FROM stg.order_details;</sql>
         <name>val_pedido</name>
         <precision>-2</precision>
         <rename>val_pedido</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Number</type>
       </meta>
@@ -600,7 +621,6 @@ FROM stg.order_details;</sql>
         <name>data_pedido</name>
         <precision>0</precision>
         <rename>data_pedido</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Date</type>
       </meta>
@@ -618,7 +638,6 @@ FROM stg.order_details;</sql>
         <name>data_desejada</name>
         <precision>0</precision>
         <rename>data_desejada</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Date</type>
       </meta>
@@ -636,7 +655,6 @@ FROM stg.order_details;</sql>
         <name>data_expedicao</name>
         <precision>0</precision>
         <rename>data_expedicao</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Date</type>
       </meta>
@@ -654,7 +672,6 @@ FROM stg.order_details;</sql>
         <name>data_execucao</name>
         <precision>-2</precision>
         <rename>data_execucao</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Timestamp</type>
       </meta>
@@ -713,7 +730,6 @@ FROM stg.order_details;</sql>
         <name>cod_pedido</name>
         <precision>-2</precision>
         <rename>cod_pedido</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
@@ -749,29 +765,6 @@ FROM stg.order_details;</sql>
     <GUI>
       <xloc>448</xloc>
       <yloc>176</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>data_execucao</name>
-    <type>SystemInfo</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>data_execucao</name>
-        <type>system date (fixed)</type>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1072</xloc>
-      <yloc>272</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

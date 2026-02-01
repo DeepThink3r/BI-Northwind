@@ -114,6 +114,29 @@
     </GUI>
   </transform>
   <transform>
+    <name>data_execucao</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>data_execucao</name>
+        <type>system date (fixed)</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>848</xloc>
+      <yloc>304</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>input/stg_categories</name>
     <type>TableInput</type>
     <description/>
@@ -155,8 +178,13 @@ FROM stg.categories;
     <limit>0</limit>
     <sql>SELECT productid as cod_produto, 
 	productname as nome_produto, 
-	categoryid as cod_categoria, 
-	discontinued as status
+	categoryid as cod_categoria,
+	supplierid as cod_fornecedor, 
+	discontinued as status,
+	unitprice as preco_unitario,
+	unitsinstock as qtd_livre,
+	unitsonorder as qtd_reservada,
+	reorderlevel as qtd_minima
 FROM stg.products</sql>
     <variables_active>N</variables_active>
     <attributes/>
@@ -256,16 +284,40 @@ FROM stg.products</sql>
         <stream_name>cod_categoria</stream_name>
       </field>
       <field>
-        <column_name>status</column_name>
-        <stream_name>status</stream_name>
-      </field>
-      <field>
         <column_name>nome_categoria</column_name>
         <stream_name>nome_categoria</stream_name>
       </field>
       <field>
         <column_name>descricao</column_name>
         <stream_name>descricao</stream_name>
+      </field>
+      <field>
+        <column_name>cod_fornecedor</column_name>
+        <stream_name>cod_fornecedor</stream_name>
+      </field>
+      <field>
+        <column_name>status</column_name>
+        <stream_name>status</stream_name>
+      </field>
+      <field>
+        <column_name>preco_unitario</column_name>
+        <stream_name>preco_unitario</stream_name>
+      </field>
+      <field>
+        <column_name>qtd_livre</column_name>
+        <stream_name>qtd_livre</stream_name>
+      </field>
+      <field>
+        <column_name>qtd_reservada</column_name>
+        <stream_name>qtd_reservada</stream_name>
+      </field>
+      <field>
+        <column_name>qtd_minima</column_name>
+        <stream_name>qtd_minima</stream_name>
+      </field>
+      <field>
+        <column_name>status_desc</column_name>
+        <stream_name>status_desc</stream_name>
       </field>
       <field>
         <column_name>data_execucao</column_name>
@@ -326,9 +378,45 @@ FROM stg.products</sql>
       </field>
       <field>
         <length>-2</length>
+        <name>cod_fornecedor</name>
+        <precision>-2</precision>
+        <rename/>
+      </field>
+      <field>
+        <length>-2</length>
+        <name>status</name>
+        <precision>-2</precision>
+        <rename/>
+      </field>
+      <field>
+        <length>-2</length>
+        <name>preco_unitario</name>
+        <precision>-2</precision>
+        <rename/>
+      </field>
+      <field>
+        <length>-2</length>
+        <name>qtd_livre</name>
+        <precision>-2</precision>
+        <rename/>
+      </field>
+      <field>
+        <length>-2</length>
+        <name>qtd_reservada</name>
+        <precision>-2</precision>
+        <rename/>
+      </field>
+      <field>
+        <length>-2</length>
+        <name>qtd_minima</name>
+        <precision>-2</precision>
+        <rename/>
+      </field>
+      <field>
+        <length>-2</length>
         <name>status_desc</name>
         <precision>-2</precision>
-        <rename>status</rename>
+        <rename/>
       </field>
       <field>
         <length>-2</length>
@@ -362,7 +450,6 @@ FROM stg.products</sql>
         <name>cod_produto</name>
         <precision>0</precision>
         <rename>cod_produto</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
       </meta>
@@ -380,7 +467,6 @@ FROM stg.products</sql>
         <name>nome_produto</name>
         <precision>-2</precision>
         <rename>nome_produto</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>String</type>
       </meta>
@@ -398,9 +484,127 @@ FROM stg.products</sql>
         <name>cod_categoria</name>
         <precision>0</precision>
         <rename>cod_categoria</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>Integer</type>
+      </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>9</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>cod_fornecedor</name>
+        <precision>0</precision>
+        <rename>cod_fornecedor</rename>
+        <storage_type/>
+        <type>Integer</type>
+      </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>-2</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>status</name>
+        <precision>0</precision>
+        <rename>status</rename>
+        <storage_type/>
+        <type>Integer</type>
+      </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>16</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>preco_unitario</name>
+        <precision>8</precision>
+        <rename>preco_unitario</rename>
+        <storage_type/>
+        <type>BigNumber</type>
+      </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>9</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>qtd_livre</name>
+        <precision>0</precision>
+        <rename>qtd_livre</rename>
+        <storage_type/>
+        <type>Integer</type>
+      </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>9</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>qtd_reservada</name>
+        <precision>0</precision>
+        <rename>qtd_reservada</rename>
+        <storage_type/>
+        <type>Integer</type>
+      </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>9</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>qtd_minima</name>
+        <precision>0</precision>
+        <rename>qtd_minima</rename>
+        <storage_type/>
+        <type>Integer</type>
+      </meta>
+      <meta>
+        <conversion_mask/>
+        <currency_symbol/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <decimal_symbol/>
+        <encoding/>
+        <grouping_symbol/>
+        <length>13</length>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <name>status_desc</name>
+        <precision>-2</precision>
+        <rename>status_desc</rename>
+        <storage_type/>
+        <type>String</type>
       </meta>
       <meta>
         <conversion_mask/>
@@ -416,7 +620,6 @@ FROM stg.products</sql>
         <name>nome_categoria</name>
         <precision>-2</precision>
         <rename>nome_categoria</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>String</type>
       </meta>
@@ -434,7 +637,6 @@ FROM stg.products</sql>
         <name>descricao</name>
         <precision>-2</precision>
         <rename>descricao</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
         <type>String</type>
       </meta>
@@ -452,38 +654,14 @@ FROM stg.products</sql>
         <name>data_execucao</name>
         <precision>-2</precision>
         <rename>data_execucao</rename>
-        <roundingType>half_even</roundingType>
         <storage_type/>
-        <type>Timestamp</type>
+        <type>Date</type>
       </meta>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
       <xloc>1024</xloc>
-      <yloc>304</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>data_execucao</name>
-    <type>SystemInfo</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>data_execucao</name>
-        <type>system date (fixed)</type>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>848</xloc>
       <yloc>304</yloc>
     </GUI>
   </transform>
