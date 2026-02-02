@@ -46,7 +46,7 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
   - Dim_Funcionario
 
 - Fato
-  - Dim_Pedido
+  - Fato_Pedido
 
 <img width="901" height="723" alt="image" src="https://github.com/user-attachments/assets/3263d90b-8d7e-49c3-9a30-ab91c57b403e" />
 
@@ -76,5 +76,6 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
   - Evolução de pedidos;
   - Visão analítica de pedidos;
 
+<img width="1444" height="809" alt="image" src="https://github.com/user-attachments/assets/40f46ce7-1664-434c-88f9-ef75ddc51f6c" />
 
 
