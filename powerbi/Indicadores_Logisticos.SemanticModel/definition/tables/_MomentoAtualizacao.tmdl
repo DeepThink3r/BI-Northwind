@@ -19,8 +19,11 @@ table _MomentoAtualizacao
 		mode: import
 		source =
 				let
-				    Fonte = DateTimeZone.SwitchZone(DateTimeZone.LocalNow(),-3),
-				    #"Convertido para Tabela" = #table(1, {{Fonte}}),
+				    // Pega a hora universal (UTC 0) para evitar variação de servidor
+				    Fonte = DateTimeZone.UtcNow(),
+				    // Ajusta para o fuso de Brasília (-3) de forma fixa
+				    BrasiliaTime = DateTimeZone.SwitchZone(Fonte, -3),
+				    #"Convertido para Tabela" = #table(1, {{BrasiliaTime}}),
 				    #"Colunas Renomeadas" = Table.RenameColumns(#"Convertido para Tabela",{{"Column1", "Atualização"}}),
 				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"Atualização", type datetimezone}})
 				in
