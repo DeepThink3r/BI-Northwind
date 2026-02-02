@@ -132,7 +132,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ranking de itens mais vendidos (5)'"
+                  "Value": "'Ranking de Itens Mais Vendidos (5)'"
                 }
               }
             }

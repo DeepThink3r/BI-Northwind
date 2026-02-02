@@ -90,6 +90,20 @@
                   "Value": "'OutsideEnd'"
                 }
               }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
             }
           }
         }
@@ -148,7 +162,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Venda de produtos Ativos vs. Descontinuados'"
+                  "Value": "'Valor de Venda por País'"
                 }
               }
             }
