@@ -8,21 +8,23 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["Fato_Pedido","Dim_Produto","Dim_Cliente","Dim_Expedidor","Dim_Fornecedor","Dim_Funcionario"]
+annotation PBI_QueryOrder = ["Fato_Pedido","Dim_Produto","Dim_Cliente","Dim_Expedidor","Dim_Fornecedor","Dim_Funcionario","_MomentoAtualizacao","_Medidas","Dim_Calendario"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table Fato_Pedido
 ref table DateTableTemplate_5a60aca5-42ff-4f14-990f-ca982a4400db
-ref table LocalDateTable_6ed19494-94ae-4f4d-aa9f-434e8e17250d
-ref table LocalDateTable_08af6a54-f31a-4ac2-b900-60f7e2f02ff0
-ref table LocalDateTable_3e0dac58-a84e-49f4-8d00-8cd82fcd5690
 ref table Dim_Produto
 ref table LocalDateTable_d85d3d0c-6f11-43ab-bc6f-31a40ee64d8e
 ref table Dim_Cliente
 ref table Dim_Expedidor
 ref table Dim_Fornecedor
 ref table Dim_Funcionario
+ref table _MomentoAtualizacao
+ref table LocalDateTable_d9ec1df6-eb16-4663-88f2-2b186d60e945
+ref table _Medidas
+ref table Dim_Calendario
+ref table LocalDateTable_4f2218dc-856c-49c5-99d5-bd7eef69c773
 
 ref cultureInfo pt-BR
 

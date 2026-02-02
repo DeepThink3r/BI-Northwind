@@ -1,0 +1,146 @@
+table Dim_Calendario
+	lineageTag: 150f53f5-4633-4345-a427-17e94e1c2a0f
+
+	column sk_tempo
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e4f4522-bb53-4ccb-bdf0-f69548db3801
+		summarizeBy: sum
+		sourceColumn: sk_tempo
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_completa
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 51590565-bb1e-4c0d-b3a6-2f95d20190a3
+		summarizeBy: none
+		sourceColumn: data_completa
+
+		variation Variation
+			isDefault
+			relationship: 6f19deea-d156-49c8-86fb-70a9a2e1b6b0
+			defaultHierarchy: LocalDateTable_4f2218dc-856c-49c5-99d5-bd7eef69c773.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ea33653-366c-458e-9253-99912d39d5ff
+		summarizeBy: sum
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 07a76395-22b1-45c4-a4f7-d7c9d9bd09ec
+		summarizeBy: sum
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia
+		dataType: int64
+		formatString: 0
+		lineageTag: ea39b51d-ea42-4918-a6c0-610b959d4a46
+		summarizeBy: sum
+		sourceColumn: dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_ano
+		dataType: int64
+		formatString: 0
+		lineageTag: ec6dd917-5e72-4030-8445-83c032bbc286
+		summarizeBy: sum
+		sourceColumn: dia_ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: eaa0a37d-1d57-40f4-a9d8-926c0463360a
+		summarizeBy: sum
+		sourceColumn: trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column semestre
+		dataType: int64
+		formatString: 0
+		lineageTag: c72988b2-028e-47d9-8f73-b3eef4c81015
+		summarizeBy: sum
+		sourceColumn: semestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_mes
+		dataType: string
+		lineageTag: 6e942d4c-2ca1-4b26-a791-30d6ced2b50c
+		summarizeBy: none
+		sourceColumn: nome_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_dia_semana
+		dataType: string
+		lineageTag: b7b07cd6-3a00-462e-a167-c28500077321
+		summarizeBy: none
+		sourceColumn: nome_dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana_num
+		dataType: int64
+		formatString: 0
+		lineageTag: 32f3f09c-736d-4fb4-b152-cb84b8bd2578
+		summarizeBy: sum
+		sourceColumn: dia_semana_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column fim_semana
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3fd6aef4-ad89-454f-bdae-7ae2ca75434e
+		summarizeBy: none
+		sourceColumn: fim_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_ano
+		dataType: string
+		lineageTag: e4a3d2a1-b6e7-4bd6-a668-4be9f6363e54
+		summarizeBy: none
+		sourceColumn: mes_ano
+		sortByColumn: classificador_ano_mes
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column classificador_ano_mes = ```
+			(Dim_Calendario[ano]*100) + Dim_Calendario[mes] 
+			```
+		formatString: 0
+		lineageTag: 9ff85a47-964f-4bb8-bdc6-92ab325fab8e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Calendario = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT sk_tempo, #(lf)#(tab)data_completa, #(lf)#(tab)ano, #(lf)#(tab)mes, #(lf)#(tab)dia, #(lf)#(tab)dia_ano, #(lf)#(tab)trimestre, #(lf)#(tab)semestre, #(lf)#(tab)nome_mes, #(lf)#(tab)nome_dia_semana, #(lf)#(tab)dia_semana_num, #(lf)#(tab)fim_semana, #(lf)#(tab)mes_ano#(lf)FROM dw.dim_tempo dt #(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp #(lf)#(tab)#(tab)#(tab)  where dt.data_completa = fp.data_pedido::date)", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,63 @@
+table _Medidas
+	lineageTag: fe7f6bbf-380a-46ef-a776-27ef7c1b1d36
+
+	measure 'Data Hora Atual' = ```
+			"Atualizado: " & SELECTEDVALUE(_MomentoAtualizacao[Atualização]) 
+			```
+		lineageTag: acda940a-8c68-4736-bdea-5b60390d45ce
+
+	measure valorVendas = sum(Fato_Pedido[val_pedido])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 712c6544-9620-4832-94b6-b74e6a6e060a
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Volume Pedidos' = ```
+			sum(Fato_Pedido[quantidade]) 
+			```
+		formatString: #,0
+		lineageTag: 9385d422-a96b-4ec7-94d0-0edc102c6ea6
+
+	measure 'Quantidade Pedidos' = DISTINCTCOUNT(Fato_Pedido[cod_pedido])
+		formatString: 0
+		lineageTag: d2186500-8dbc-4116-8c41-a422b29b9ab9
+
+	measure 'Ticket Médio por Pedido' = ```
+			
+			DIVIDE(
+			    [valorVendas], 
+			    DISTINCTCOUNT(Fato_Pedido[cod_pedido]),
+			    0
+			)
+			```
+		lineageTag: 1d701b07-1ff2-436b-949d-4290fb60e6b6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Média Itens por Pedido' = ```
+			
+			DIVIDE(
+			    [Volume Pedidos], 
+			    DISTINCTCOUNT(Fato_Pedido[cod_pedido]),
+			    0
+			)
+			```
+		formatString: 0
+		lineageTag: f2b35ebd-35e8-4bf9-9c5a-2160f5081e19
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	partition _Medidas = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

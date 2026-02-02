@@ -34,11 +34,6 @@ table Fato_Pedido
 		summarizeBy: none
 		sourceColumn: data_pedido
 
-		variation Variation
-			isDefault
-			relationship: 0761a240-e8b8-4f2f-8d67-780805fd446b
-			defaultHierarchy: LocalDateTable_6ed19494-94ae-4f4d-aa9f-434e8e17250d.'Hierarquia de datas'
-
 		annotation SummarizationSetBy = Automatic
 
 	column data_desejada
@@ -48,11 +43,6 @@ table Fato_Pedido
 		summarizeBy: none
 		sourceColumn: data_desejada
 
-		variation Variation
-			isDefault
-			relationship: f5dba2fd-5fcb-4bb7-8936-e7045313047c
-			defaultHierarchy: LocalDateTable_08af6a54-f31a-4ac2-b900-60f7e2f02ff0.'Hierarquia de datas'
-
 		annotation SummarizationSetBy = Automatic
 
 	column data_expedicao
@@ -61,11 +51,6 @@ table Fato_Pedido
 		lineageTag: d45b626f-0550-4280-8735-7527a42f474e
 		summarizeBy: none
 		sourceColumn: data_expedicao
-
-		variation Variation
-			isDefault
-			relationship: 1dd804f9-1a37-4049-9726-7dd11ad20d3e
-			defaultHierarchy: LocalDateTable_3e0dac58-a84e-49f4-8d00-8cd82fcd5690.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -126,7 +111,7 @@ table Fato_Pedido
 		mode: import
 		source =
 				let
-				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_pedido, #(lf)#(tab)cod_cliente, #(lf)#(tab)cod_funcionario, #(lf)#(tab)data_pedido, #(lf)#(tab)data_desejada, #(lf)#(tab)data_expedicao, #(lf)#(tab)cod_expedidor, #(lf)#(tab)regiao_expedicao, #(lf)#(tab)pais_extedicao, #(lf)#(tab)cod_produto, #(lf)#(tab)quantidade, #(lf)#(tab)val_pedido#(lf)FROM dw.fato_pedidos", null, [EnableFolding=true])
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_pedido, #(lf)#(tab)cod_cliente, #(lf)#(tab)cod_funcionario, #(lf)#(tab)data_pedido::date as data_pedido, #(lf)#(tab)data_desejada, #(lf)#(tab)data_expedicao, #(lf)#(tab)cod_expedidor, #(lf)#(tab)regiao_expedicao, #(lf)#(tab)pais_extedicao, #(lf)#(tab)cod_produto, #(lf)#(tab)quantidade, #(lf)#(tab)val_pedido#(lf)FROM dw.fato_pedidos", null, [EnableFolding=true])
 				in
 				    Fonte
 

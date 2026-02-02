@@ -1,18 +1,3 @@
-relationship 0761a240-e8b8-4f2f-8d67-780805fd446b
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Fato_Pedido.data_pedido
-	toColumn: LocalDateTable_6ed19494-94ae-4f4d-aa9f-434e8e17250d.Date
-
-relationship f5dba2fd-5fcb-4bb7-8936-e7045313047c
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Fato_Pedido.data_desejada
-	toColumn: LocalDateTable_08af6a54-f31a-4ac2-b900-60f7e2f02ff0.Date
-
-relationship 1dd804f9-1a37-4049-9726-7dd11ad20d3e
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Fato_Pedido.data_expedicao
-	toColumn: LocalDateTable_3e0dac58-a84e-49f4-8d00-8cd82fcd5690.Date
-
 relationship 1cf37141-dafc-4064-b401-d84001d78e8b
 	joinOnDateBehavior: datePartOnly
 	fromColumn: Dim_Produto.data_execucao
@@ -37,4 +22,28 @@ relationship AutoDetected_e4d6c69c-9206-4405-86a2-dcb794244a6a
 relationship AutoDetected_4d02901d-5f23-41d1-bc1c-af3622d43d91
 	fromColumn: Dim_Produto.cod_fornecedor
 	toColumn: Dim_Fornecedor.cod_fornecedor
+
+relationship 31ec8d85-b494-46ee-9f5a-25cd32295972
+	joinOnDateBehavior: datePartOnly
+	fromColumn: _MomentoAtualizacao.Atualização
+	toColumn: LocalDateTable_d9ec1df6-eb16-4663-88f2-2b186d60e945.Date
+
+relationship 6f19deea-d156-49c8-86fb-70a9a2e1b6b0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Calendario.data_completa
+	toColumn: LocalDateTable_4f2218dc-856c-49c5-99d5-bd7eef69c773.Date
+
+relationship ba5a58ae-5361-1313-6973-1ad581ab0a24
+	fromColumn: Fato_Pedido.data_pedido
+	toColumn: Dim_Calendario.data_completa
+
+relationship 06d10084-7684-41aa-92f0-239f6dc028e6
+	isActive: false
+	fromColumn: Fato_Pedido.data_desejada
+	toColumn: Dim_Calendario.data_completa
+
+relationship 9e530404-600e-2396-f2be-4a58091bb120
+	isActive: false
+	fromColumn: Fato_Pedido.data_expedicao
+	toColumn: Dim_Calendario.data_completa
 
