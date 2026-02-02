@@ -1,6 +1,6 @@
 # Objetivo do Projeto
 
-Este projeto nasceu da curiosidade em explorar a ferramenta de ETL, Apache Hop (um potente fork do projeto Kettle/Pentaho), e recursos do Metabase, ferramenta open source de data visualization.
+Este projeto nasceu da curiosidade em explorar a ferramenta de ETL, Apache Hop (um potente fork do projeto Kettle/Pentaho), e recursos do power bi, ferramenta da Microsoft para data visualization.
 
 Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a clássica base de dados Northwind. A arquitetura foi fundamentada nas boas práticas de Kimball, garantindo um fluxo robusto: desde a extração das fontes transacionais, passando pela transformação e carga (ETL), até a estruturação do Data Warehouse e a entrega de indicadores estratégicos.
 
@@ -11,10 +11,10 @@ Para validar essa stack, estruturei um projeto de BI ponta a ponta utilizando a 
 - SQL Azure onde os dados do northwind foram armazenados;
 - RDS-Postgres(AWS) para fazer a cópia e transformação dos dados para o schema de staging(stg) e data warehouse(dw) sucessivamente;
 - Apache Hop em servidor local como ferramenta de ETL;
-- Metabase hospedado em uma instância EC2 da Amazon;
+- Power BI;
 - Crontab para rodar o workflow do Apache Hop periodicamente;
 
-<img width="782" height="505" alt="image" src="https://github.com/user-attachments/assets/0fcc45ed-92f3-49f9-a9c2-595f7645a618" />
+<img width="775" height="500" alt="image" src="https://github.com/user-attachments/assets/3943808b-0bbf-4a49-a3db-3d26768a0b56" />
 
 ## Como rodar um workflow ou pipeline do Apache Hop no terminal?
 
@@ -75,10 +75,6 @@ Ainda seguindo a metodologia do Kimbal, as tabelas foram separadas em:
   - Ranking de produtos mais vendidos;
   - Evolução de pedidos;
   - Visão analítica de pedidos;
-
-<img width="1851" height="816" alt="image" src="https://github.com/user-attachments/assets/67216189-3a16-4639-b9a0-b7bde89ba12a" />
-<img width="1847" height="501" alt="image" src="https://github.com/user-attachments/assets/6b8f6a68-37d6-477e-a87c-3740daf6eba0" />
-<img width="1850" height="751" alt="image" src="https://github.com/user-attachments/assets/9da70de0-30ff-4488-a9ad-2279a9ffc5f0" />
 
 
 
