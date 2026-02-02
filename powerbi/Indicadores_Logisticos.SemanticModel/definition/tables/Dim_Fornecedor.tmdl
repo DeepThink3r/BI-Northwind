@@ -1,0 +1,32 @@
+table Dim_Fornecedor
+	lineageTag: ecddab1a-089b-4718-a7d0-782f3e717063
+
+	column cod_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 395d6ae1-2357-4d1a-a979-34cef2f72b08
+		summarizeBy: none
+		sourceColumn: cod_fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_empresa
+		dataType: string
+		lineageTag: 4d52622f-c8ee-452a-ae81-0b3c674b6c37
+		summarizeBy: none
+		sourceColumn: nome_empresa
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Fornecedor = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_fornecedor, #(lf)#(tab)nome_empresa#(lf)FROM dw.dim_fornecedor df #(lf)WHERE exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.dim_produtos dp#(lf)#(tab)#(tab)#(tab)  where df.cod_fornecedor = dp.cod_fornecedor)", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

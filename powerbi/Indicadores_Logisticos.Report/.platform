@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Indicadores_Logisticos"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fa1a575c-8203-4d48-ae2a-21b58790dd29"
+  }
+}

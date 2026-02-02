@@ -1,0 +1,40 @@
+table Dim_Funcionario
+	lineageTag: 70d829a4-5c84-4b89-ab1a-8f4198947376
+
+	column cod_funcionario
+		dataType: int64
+		formatString: 0
+		lineageTag: dc584908-22ca-4eac-a63d-115d7025eca6
+		summarizeBy: none
+		sourceColumn: cod_funcionario
+
+		annotation SummarizationSetBy = Automatic
+
+	column cargo
+		dataType: string
+		lineageTag: c804cd04-7863-4a47-bd0d-8261b4e6190b
+		summarizeBy: none
+		sourceColumn: cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_completo
+		dataType: string
+		lineageTag: a2ffce45-bc12-4ef4-a528-8b131168f25b
+		summarizeBy: none
+		sourceColumn: nome_completo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Funcionario = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_funcionario, #(lf)#(tab)cargo, #(lf)#(tab)nome_completo#(lf)FROM dw.dim_funcionario df #(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp#(lf)#(tab)#(tab)#(tab)  where df.cod_funcionario = fp.cod_funcionario)", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

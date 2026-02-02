@@ -1,0 +1,134 @@
+table Dim_Produto
+	lineageTag: fe38a6a6-871a-4097-b849-104b212e043c
+
+	column cod_produto
+		dataType: int64
+		formatString: 0
+		lineageTag: f98c4f97-4f44-4798-ab45-85ba4bf927ae
+		summarizeBy: none
+		sourceColumn: cod_produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_produto
+		dataType: string
+		lineageTag: 1d049090-7e72-479a-9eea-b8c131ca623b
+		summarizeBy: none
+		sourceColumn: nome_produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_categoria
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d047b2d-afe2-4c7a-97a7-8850c3989a1c
+		summarizeBy: sum
+		sourceColumn: cod_categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: int64
+		formatString: 0
+		lineageTag: 881abcc6-41c9-4c7c-80a0-0e567370d758
+		summarizeBy: sum
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_categoria
+		dataType: string
+		lineageTag: 5bf0981b-4cad-4fe0-8ee4-55f5ce52523d
+		summarizeBy: none
+		sourceColumn: nome_categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column descricao
+		dataType: string
+		lineageTag: 6699caf7-f878-4bfc-9450-620315df1957
+		summarizeBy: none
+		sourceColumn: descricao
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_execucao
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5bfd87a1-1c9a-42ad-a62d-00e2093602dd
+		summarizeBy: none
+		sourceColumn: data_execucao
+
+		variation Variation
+			isDefault
+			relationship: 1cf37141-dafc-4064-b401-d84001d78e8b
+			defaultHierarchy: LocalDateTable_d85d3d0c-6f11-43ab-bc6f-31a40ee64d8e.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: f9b39ddc-4de8-4aa4-bab5-170584b31cbb
+		summarizeBy: none
+		sourceColumn: cod_fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column preco_unitario
+		dataType: double
+		lineageTag: 895ec6cf-8698-413a-a304-b17b74bc2319
+		summarizeBy: sum
+		sourceColumn: preco_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column qtd_livre
+		dataType: int64
+		formatString: 0
+		lineageTag: 064e7287-cd1a-42f3-a9f9-5c7ee3a64028
+		summarizeBy: sum
+		sourceColumn: qtd_livre
+
+		annotation SummarizationSetBy = Automatic
+
+	column qtd_reservada
+		dataType: int64
+		formatString: 0
+		lineageTag: eb011799-beb1-4f58-91d2-d22bf3d25ee0
+		summarizeBy: sum
+		sourceColumn: qtd_reservada
+
+		annotation SummarizationSetBy = Automatic
+
+	column qtd_minima
+		dataType: int64
+		formatString: 0
+		lineageTag: 72ab2ff2-b4bd-4948-be48-eea7a0089616
+		summarizeBy: sum
+		sourceColumn: qtd_minima
+
+		annotation SummarizationSetBy = Automatic
+
+	column status_desc
+		dataType: string
+		lineageTag: 5a72dec6-320c-4586-8e9e-e382070fe113
+		summarizeBy: none
+		sourceColumn: status_desc
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Produto = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_produto, #(lf)#(tab)nome_produto, #(lf)#(tab)cod_categoria, #(lf)#(tab)status, #(lf)#(tab)nome_categoria, #(lf)#(tab)descricao, #(lf)#(tab)data_execucao, #(lf)#(tab)cod_fornecedor, #(lf)#(tab)preco_unitario, #(lf)#(tab)qtd_livre, #(lf)#(tab)qtd_reservada, #(lf)#(tab)qtd_minima, #(lf)#(tab)status_desc#(lf)FROM dw.dim_produtos dp #(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp #(lf)#(tab)#(tab)#(tab)  where dp.cod_produto = fp.cod_produto)", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

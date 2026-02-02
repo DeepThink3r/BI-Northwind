@@ -1,0 +1,63 @@
+table Dim_Cliente
+	lineageTag: f6b85340-f3ba-48c2-9014-65de7809597a
+
+	column cod_cliente
+		dataType: string
+		lineageTag: db2a9f3d-45a5-43cf-811c-6674f47095f6
+		summarizeBy: none
+		sourceColumn: cod_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_empresa
+		dataType: string
+		lineageTag: fd521c7e-7647-46a8-acc9-a503586c7901
+		summarizeBy: none
+		sourceColumn: nome_empresa
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_contato
+		dataType: string
+		lineageTag: cb9a82c1-9fcc-46d5-86d2-6985f60de74d
+		summarizeBy: none
+		sourceColumn: nome_contato
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_cargo
+		dataType: string
+		lineageTag: 5091b185-c5dc-4dff-b0c6-21756cfe0ee4
+		summarizeBy: none
+		sourceColumn: nome_cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao
+		dataType: string
+		lineageTag: 862ddfeb-d0eb-4c78-8f5f-b62b49853385
+		summarizeBy: none
+		sourceColumn: regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais
+		dataType: string
+		lineageTag: 92205b14-6031-48b0-8875-e54fca27ee86
+		summarizeBy: none
+		sourceColumn: pais
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Cliente = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_cliente, #(lf)#(tab)nome_empresa, #(lf)#(tab)nome_contato, #(lf)#(tab)nome_cargo, #(lf)#(tab)regiao, #(lf)#(tab)pais#(lf)FROM dw.dim_cliente a#(lf)WHERE EXISTS (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp #(lf)#(tab)#(tab)#(tab)  where a.cod_cliente = fp.cod_cliente)", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

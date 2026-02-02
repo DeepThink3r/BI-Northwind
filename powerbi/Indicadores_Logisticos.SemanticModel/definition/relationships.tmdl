@@ -1,0 +1,40 @@
+relationship 0761a240-e8b8-4f2f-8d67-780805fd446b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fato_Pedido.data_pedido
+	toColumn: LocalDateTable_6ed19494-94ae-4f4d-aa9f-434e8e17250d.Date
+
+relationship f5dba2fd-5fcb-4bb7-8936-e7045313047c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fato_Pedido.data_desejada
+	toColumn: LocalDateTable_08af6a54-f31a-4ac2-b900-60f7e2f02ff0.Date
+
+relationship 1dd804f9-1a37-4049-9726-7dd11ad20d3e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fato_Pedido.data_expedicao
+	toColumn: LocalDateTable_3e0dac58-a84e-49f4-8d00-8cd82fcd5690.Date
+
+relationship 1cf37141-dafc-4064-b401-d84001d78e8b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Produto.data_execucao
+	toColumn: LocalDateTable_d85d3d0c-6f11-43ab-bc6f-31a40ee64d8e.Date
+
+relationship AutoDetected_215ae586-f4f9-4ff0-93c9-4400a5079d63
+	fromColumn: Fato_Pedido.cod_cliente
+	toColumn: Dim_Cliente.cod_cliente
+
+relationship AutoDetected_8f810176-5303-4b92-890d-7d5418c937a6
+	fromColumn: Fato_Pedido.cod_funcionario
+	toColumn: Dim_Funcionario.cod_funcionario
+
+relationship AutoDetected_d191009a-dd7e-44ed-956e-723fcceb2386
+	fromColumn: Fato_Pedido.cod_expedidor
+	toColumn: Dim_Expedidor.cod_expedidor
+
+relationship AutoDetected_e4d6c69c-9206-4405-86a2-dcb794244a6a
+	fromColumn: Fato_Pedido.cod_produto
+	toColumn: Dim_Produto.cod_produto
+
+relationship AutoDetected_4d02901d-5f23-41d1-bc1c-af3622d43d91
+	fromColumn: Dim_Produto.cod_fornecedor
+	toColumn: Dim_Fornecedor.cod_fornecedor
+

@@ -1,0 +1,32 @@
+table Dim_Expedidor
+	lineageTag: 3e427964-52dd-44a8-9ba0-d69db32d1400
+
+	column cod_expedidor
+		dataType: int64
+		formatString: 0
+		lineageTag: 109c34f7-819a-45c5-b473-f182d81f7a9e
+		summarizeBy: none
+		sourceColumn: cod_expedidor
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_empresa
+		dataType: string
+		lineageTag: 69ad6923-af1e-42e2-b88e-7ee6ebfae68c
+		summarizeBy: none
+		sourceColumn: nome_empresa
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Expedidor = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "select#(lf)#(tab)cod_expedidor, #(lf)#(tab)nome_empresa#(lf)from dw.dim_expedidor de#(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp#(lf)#(tab)#(tab)#(tab)  where de.cod_expedidor = fp.cod_expedidor)", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

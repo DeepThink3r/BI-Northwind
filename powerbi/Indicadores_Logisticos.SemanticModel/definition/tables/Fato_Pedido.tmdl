@@ -1,0 +1,136 @@
+table Fato_Pedido
+	lineageTag: 7f995b29-8bd7-41da-ba84-d1a34aac3f1d
+
+	column cod_pedido
+		dataType: int64
+		formatString: 0
+		lineageTag: c18bfde8-1b0b-4f5b-a3c2-38572f902de8
+		summarizeBy: sum
+		sourceColumn: cod_pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_cliente
+		dataType: string
+		lineageTag: 50f6eda6-46d8-46e3-bc13-86a56ad015b8
+		summarizeBy: none
+		sourceColumn: cod_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_funcionario
+		dataType: int64
+		formatString: 0
+		lineageTag: 08ac0082-73ee-47f7-85ce-cdba57178b19
+		summarizeBy: none
+		sourceColumn: cod_funcionario
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_pedido
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 90c78bec-01b4-44b3-956f-2af8343abce8
+		summarizeBy: none
+		sourceColumn: data_pedido
+
+		variation Variation
+			isDefault
+			relationship: 0761a240-e8b8-4f2f-8d67-780805fd446b
+			defaultHierarchy: LocalDateTable_6ed19494-94ae-4f4d-aa9f-434e8e17250d.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_desejada
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cbceb6b2-8a6e-4575-89a7-715e8022e903
+		summarizeBy: none
+		sourceColumn: data_desejada
+
+		variation Variation
+			isDefault
+			relationship: f5dba2fd-5fcb-4bb7-8936-e7045313047c
+			defaultHierarchy: LocalDateTable_08af6a54-f31a-4ac2-b900-60f7e2f02ff0.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_expedicao
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d45b626f-0550-4280-8735-7527a42f474e
+		summarizeBy: none
+		sourceColumn: data_expedicao
+
+		variation Variation
+			isDefault
+			relationship: 1dd804f9-1a37-4049-9726-7dd11ad20d3e
+			defaultHierarchy: LocalDateTable_3e0dac58-a84e-49f4-8d00-8cd82fcd5690.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_expedidor
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a68fa72-905c-4f2e-86e0-806195fa5b9a
+		summarizeBy: none
+		sourceColumn: cod_expedidor
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao_expedicao
+		dataType: string
+		lineageTag: 047ceaf9-2b8e-490f-a853-a98dfcbdaa66
+		summarizeBy: none
+		sourceColumn: regiao_expedicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais_extedicao
+		dataType: string
+		lineageTag: beb499be-16db-45bc-9ff7-2646abb71de0
+		summarizeBy: none
+		sourceColumn: pais_extedicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_produto
+		dataType: int64
+		formatString: 0
+		lineageTag: 421bb9a5-b9f7-4de2-a9d3-ec6b52b620f5
+		summarizeBy: none
+		sourceColumn: cod_produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantidade
+		dataType: int64
+		formatString: 0
+		lineageTag: f67d43c8-c89b-4888-bf19-d46407efcfb1
+		summarizeBy: sum
+		sourceColumn: quantidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column val_pedido
+		dataType: double
+		lineageTag: c499a7bd-46d8-4e61-8520-130149add145
+		summarizeBy: sum
+		sourceColumn: val_pedido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fato_Pedido = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_pedido, #(lf)#(tab)cod_cliente, #(lf)#(tab)cod_funcionario, #(lf)#(tab)data_pedido, #(lf)#(tab)data_desejada, #(lf)#(tab)data_expedicao, #(lf)#(tab)cod_expedidor, #(lf)#(tab)regiao_expedicao, #(lf)#(tab)pais_extedicao, #(lf)#(tab)cod_produto, #(lf)#(tab)quantidade, #(lf)#(tab)val_pedido#(lf)FROM dw.fato_pedidos", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+
