@@ -1,0 +1,1199 @@
+createOrReplace
+
+	model Model
+		culture: pt-BR
+		defaultPowerBIDataSourceVersion: powerBI_V3
+		sourceQueryCulture: pt-BR
+		dataAccessOptions
+			legacyRedirects
+			returnErrorValuesAsNull
+
+		table Fato_Pedido
+			lineageTag: 7f995b29-8bd7-41da-ba84-d1a34aac3f1d
+
+			column cod_pedido
+				dataType: int64
+				formatString: 0
+				lineageTag: c18bfde8-1b0b-4f5b-a3c2-38572f902de8
+				summarizeBy: sum
+				sourceColumn: cod_pedido
+
+				annotation SummarizationSetBy = Automatic
+
+			column cod_cliente
+				dataType: string
+				lineageTag: 50f6eda6-46d8-46e3-bc13-86a56ad015b8
+				summarizeBy: none
+				sourceColumn: cod_cliente
+
+				annotation SummarizationSetBy = Automatic
+
+			column cod_funcionario
+				dataType: int64
+				formatString: 0
+				lineageTag: 08ac0082-73ee-47f7-85ce-cdba57178b19
+				summarizeBy: none
+				sourceColumn: cod_funcionario
+
+				annotation SummarizationSetBy = Automatic
+
+			column data_pedido
+				dataType: dateTime
+				formatString: General Date
+				lineageTag: 90c78bec-01b4-44b3-956f-2af8343abce8
+				summarizeBy: none
+				sourceColumn: data_pedido
+
+				annotation SummarizationSetBy = Automatic
+
+			column data_desejada
+				dataType: dateTime
+				formatString: General Date
+				lineageTag: cbceb6b2-8a6e-4575-89a7-715e8022e903
+				summarizeBy: none
+				sourceColumn: data_desejada
+
+				annotation SummarizationSetBy = Automatic
+
+			column data_expedicao
+				dataType: dateTime
+				formatString: General Date
+				lineageTag: d45b626f-0550-4280-8735-7527a42f474e
+				summarizeBy: none
+				sourceColumn: data_expedicao
+
+				annotation SummarizationSetBy = Automatic
+
+			column cod_expedidor
+				dataType: int64
+				formatString: 0
+				lineageTag: 0a68fa72-905c-4f2e-86e0-806195fa5b9a
+				summarizeBy: none
+				sourceColumn: cod_expedidor
+
+				annotation SummarizationSetBy = Automatic
+
+			column regiao_expedicao
+				dataType: string
+				lineageTag: 047ceaf9-2b8e-490f-a853-a98dfcbdaa66
+				summarizeBy: none
+				sourceColumn: regiao_expedicao
+
+				annotation SummarizationSetBy = Automatic
+
+			column pais_extedicao
+				dataType: string
+				lineageTag: beb499be-16db-45bc-9ff7-2646abb71de0
+				summarizeBy: none
+				sourceColumn: pais_extedicao
+
+				annotation SummarizationSetBy = Automatic
+
+			column cod_produto
+				dataType: int64
+				formatString: 0
+				lineageTag: 421bb9a5-b9f7-4de2-a9d3-ec6b52b620f5
+				summarizeBy: none
+				sourceColumn: cod_produto
+
+				annotation SummarizationSetBy = Automatic
+
+			column quantidade
+				dataType: int64
+				formatString: 0
+				lineageTag: f67d43c8-c89b-4888-bf19-d46407efcfb1
+				summarizeBy: sum
+				sourceColumn: quantidade
+
+				annotation SummarizationSetBy = Automatic
+
+			column val_pedido
+				dataType: double
+				lineageTag: c499a7bd-46d8-4e61-8520-130149add145
+				summarizeBy: sum
+				sourceColumn: val_pedido
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+			partition Fato_Pedido = m
+				mode: import
+				source =
+						let
+						    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_pedido, #(lf)#(tab)cod_cliente, #(lf)#(tab)cod_funcionario, #(lf)#(tab)data_pedido::date as data_pedido, #(lf)#(tab)data_desejada, #(lf)#(tab)data_expedicao, #(lf)#(tab)cod_expedidor, #(lf)#(tab)regiao_expedicao, #(lf)#(tab)pais_extedicao, #(lf)#(tab)cod_produto, #(lf)#(tab)quantidade, #(lf)#(tab)val_pedido#(lf)FROM dw.fato_pedidos", null, [EnableFolding=true])
+						in
+						    Fonte
+
+			annotation PBI_ResultType = Table
+
+			annotation PBI_NavigationStepName = Navegação
+
+		table DateTableTemplate_5a60aca5-42ff-4f14-990f-ca982a4400db
+			isHidden
+			isPrivate
+			lineageTag: de9ff962-3db4-4453-8cc2-03039b0d96b8
+
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: 4601591e-ddc4-483f-909a-c93db242d0e3
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Ano = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 33eeaef7-2088-48ec-a623-cd98c721f6eb
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 9705032b-5ab2-4f49-858d-c63cb7b5f4b3
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Mês = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 60607260-8d81-47ed-96c1-298efd123776
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: d3c08f3a-f94a-4583-8db1-b373543aaa43
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Trimestre = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 081f7574-9d77-4c48-90ee-afa70fe29d26
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Dia = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: d4e706fc-af17-43fd-8633-6a2ec829e926
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Hierarquia de datas'
+				lineageTag: b5722f94-1830-4bbf-b0c4-5ce0125bd70b
+
+				level Ano
+					lineageTag: 80495815-9857-43e9-a420-6c52a80998a1
+					column: Ano
+
+				level Trimestre
+					lineageTag: 11054169-5630-4986-b283-572be362f455
+					column: Trimestre
+
+				level Mês
+					lineageTag: 8f43f0cd-1905-4296-84ed-67c3a373d96f
+					column: Mês
+
+				level Dia
+					lineageTag: 0a578781-6427-4f95-af0d-867d105a4d2d
+					column: Dia
+
+				annotation TemplateId = DateHierarchy
+
+			partition DateTableTemplate_5a60aca5-42ff-4f14-990f-ca982a4400db = calculated
+				mode: import
+				source = Calendar(Date(2015,1,1), Date(2015,1,1))
+
+			annotation __PBI_TemplateDateTable = true
+
+			annotation DefaultItem = DateHierarchy
+
+		table Dim_Produto
+			lineageTag: fe38a6a6-871a-4097-b849-104b212e043c
+
+			column cod_produto
+				dataType: int64
+				formatString: 0
+				lineageTag: f98c4f97-4f44-4798-ab45-85ba4bf927ae
+				summarizeBy: none
+				sourceColumn: cod_produto
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_produto
+				dataType: string
+				lineageTag: 1d049090-7e72-479a-9eea-b8c131ca623b
+				summarizeBy: none
+				sourceColumn: nome_produto
+
+				annotation SummarizationSetBy = Automatic
+
+			column cod_categoria
+				dataType: int64
+				formatString: 0
+				lineageTag: 1d047b2d-afe2-4c7a-97a7-8850c3989a1c
+				summarizeBy: sum
+				sourceColumn: cod_categoria
+
+				annotation SummarizationSetBy = Automatic
+
+			column status
+				dataType: int64
+				formatString: 0
+				lineageTag: 881abcc6-41c9-4c7c-80a0-0e567370d758
+				summarizeBy: sum
+				sourceColumn: status
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_categoria
+				dataType: string
+				lineageTag: 5bf0981b-4cad-4fe0-8ee4-55f5ce52523d
+				summarizeBy: none
+				sourceColumn: nome_categoria
+
+				annotation SummarizationSetBy = Automatic
+
+			column descricao
+				dataType: string
+				lineageTag: 6699caf7-f878-4bfc-9450-620315df1957
+				summarizeBy: none
+				sourceColumn: descricao
+
+				annotation SummarizationSetBy = Automatic
+
+			column data_execucao
+				dataType: dateTime
+				formatString: General Date
+				lineageTag: 5bfd87a1-1c9a-42ad-a62d-00e2093602dd
+				summarizeBy: none
+				sourceColumn: data_execucao
+
+				variation Variation
+					isDefault
+					relationship: 1cf37141-dafc-4064-b401-d84001d78e8b
+					defaultHierarchy: LocalDateTable_d85d3d0c-6f11-43ab-bc6f-31a40ee64d8e.'Hierarquia de datas'
+
+				annotation SummarizationSetBy = Automatic
+
+			column cod_fornecedor
+				dataType: int64
+				formatString: 0
+				lineageTag: f9b39ddc-4de8-4aa4-bab5-170584b31cbb
+				summarizeBy: none
+				sourceColumn: cod_fornecedor
+
+				annotation SummarizationSetBy = Automatic
+
+			column preco_unitario
+				dataType: double
+				lineageTag: 895ec6cf-8698-413a-a304-b17b74bc2319
+				summarizeBy: sum
+				sourceColumn: preco_unitario
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+			column qtd_livre
+				dataType: int64
+				formatString: 0
+				lineageTag: 064e7287-cd1a-42f3-a9f9-5c7ee3a64028
+				summarizeBy: sum
+				sourceColumn: qtd_livre
+
+				annotation SummarizationSetBy = Automatic
+
+			column qtd_reservada
+				dataType: int64
+				formatString: 0
+				lineageTag: eb011799-beb1-4f58-91d2-d22bf3d25ee0
+				summarizeBy: sum
+				sourceColumn: qtd_reservada
+
+				annotation SummarizationSetBy = Automatic
+
+			column qtd_minima
+				dataType: int64
+				formatString: 0
+				lineageTag: 72ab2ff2-b4bd-4948-be48-eea7a0089616
+				summarizeBy: sum
+				sourceColumn: qtd_minima
+
+				annotation SummarizationSetBy = Automatic
+
+			column status_desc
+				dataType: string
+				lineageTag: 5a72dec6-320c-4586-8e9e-e382070fe113
+				summarizeBy: none
+				sourceColumn: status_desc
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Dim_Produto = m
+				mode: import
+				source =
+						let
+						    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_produto, #(lf)#(tab)nome_produto, #(lf)#(tab)cod_categoria, #(lf)#(tab)status, #(lf)#(tab)nome_categoria, #(lf)#(tab)descricao, #(lf)#(tab)data_execucao, #(lf)#(tab)cod_fornecedor, #(lf)#(tab)preco_unitario, #(lf)#(tab)qtd_livre, #(lf)#(tab)qtd_reservada, #(lf)#(tab)qtd_minima, #(lf)#(tab)status_desc#(lf)FROM dw.dim_produtos dp #(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp #(lf)#(tab)#(tab)#(tab)  where dp.cod_produto = fp.cod_produto)", null, [EnableFolding=true])
+						in
+						    Fonte
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table LocalDateTable_d85d3d0c-6f11-43ab-bc6f-31a40ee64d8e
+			isHidden
+			showAsVariationsOnly
+			lineageTag: 9c57ce77-16d7-480e-9401-7d5d29de922c
+
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: 44c679ff-1201-4275-ae85-9cc6e330807b
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Ano = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 45eb2cae-84dd-4afe-a2f3-dae03313977b
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 4e2bc5e9-a0bd-4f4f-8232-3fa2515c5e3e
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Mês = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 07c4a3bd-ef07-4c27-8ea8-ba5cbecead84
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 2044fcfa-1006-4832-97cc-7de57b89c611
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Trimestre = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 597a0902-bf01-47e5-91e3-d35f88031a22
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Dia = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: f97805a4-173b-422b-b10c-15b54ce45614
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Hierarquia de datas'
+				lineageTag: 19d39a23-aa20-4bda-acdc-fb1dca897f0f
+
+				level Ano
+					lineageTag: 6f62159c-ea60-4a30-b071-424e9a5f7767
+					column: Ano
+
+				level Trimestre
+					lineageTag: 5b1a76a9-f41b-4dab-b68e-df029dc2b6e7
+					column: Trimestre
+
+				level Mês
+					lineageTag: 8a019854-4379-4546-ba20-9f73897329d7
+					column: Mês
+
+				level Dia
+					lineageTag: f0527167-d0bd-4d43-9a01-54ab8814bced
+					column: Dia
+
+				annotation TemplateId = DateHierarchy
+
+			partition LocalDateTable_d85d3d0c-6f11-43ab-bc6f-31a40ee64d8e = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Dim_Produto'[data_execucao])), 1, 1), Date(Year(MAX('Dim_Produto'[data_execucao])), 12, 31))
+
+			annotation __PBI_LocalDateTable = true
+
+		table Dim_Cliente
+			lineageTag: f6b85340-f3ba-48c2-9014-65de7809597a
+
+			column cod_cliente
+				dataType: string
+				lineageTag: db2a9f3d-45a5-43cf-811c-6674f47095f6
+				summarizeBy: none
+				sourceColumn: cod_cliente
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_empresa
+				dataType: string
+				lineageTag: fd521c7e-7647-46a8-acc9-a503586c7901
+				summarizeBy: none
+				sourceColumn: nome_empresa
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_contato
+				dataType: string
+				lineageTag: cb9a82c1-9fcc-46d5-86d2-6985f60de74d
+				summarizeBy: none
+				sourceColumn: nome_contato
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_cargo
+				dataType: string
+				lineageTag: 5091b185-c5dc-4dff-b0c6-21756cfe0ee4
+				summarizeBy: none
+				sourceColumn: nome_cargo
+
+				annotation SummarizationSetBy = Automatic
+
+			column regiao
+				dataType: string
+				lineageTag: 862ddfeb-d0eb-4c78-8f5f-b62b49853385
+				summarizeBy: none
+				sourceColumn: regiao
+
+				annotation SummarizationSetBy = Automatic
+
+			column pais
+				dataType: string
+				lineageTag: 92205b14-6031-48b0-8875-e54fca27ee86
+				summarizeBy: none
+				sourceColumn: pais
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Dim_Cliente = m
+				mode: import
+				source =
+						let
+						    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_cliente, #(lf)#(tab)nome_empresa, #(lf)#(tab)nome_contato, #(lf)#(tab)nome_cargo, #(lf)#(tab)regiao, #(lf)#(tab)pais#(lf)FROM dw.dim_cliente a#(lf)WHERE EXISTS (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp #(lf)#(tab)#(tab)#(tab)  where a.cod_cliente = fp.cod_cliente)", null, [EnableFolding=true])
+						in
+						    Fonte
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table Dim_Expedidor
+			lineageTag: 3e427964-52dd-44a8-9ba0-d69db32d1400
+
+			column cod_expedidor
+				dataType: int64
+				formatString: 0
+				lineageTag: 109c34f7-819a-45c5-b473-f182d81f7a9e
+				summarizeBy: none
+				sourceColumn: cod_expedidor
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_empresa
+				dataType: string
+				lineageTag: 69ad6923-af1e-42e2-b88e-7ee6ebfae68c
+				summarizeBy: none
+				sourceColumn: nome_empresa
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Dim_Expedidor = m
+				mode: import
+				source =
+						let
+						    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "select#(lf)#(tab)cod_expedidor, #(lf)#(tab)nome_empresa#(lf)from dw.dim_expedidor de#(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp#(lf)#(tab)#(tab)#(tab)  where de.cod_expedidor = fp.cod_expedidor)", null, [EnableFolding=true])
+						in
+						    Fonte
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table Dim_Fornecedor
+			lineageTag: ecddab1a-089b-4718-a7d0-782f3e717063
+
+			column cod_fornecedor
+				dataType: int64
+				formatString: 0
+				lineageTag: 395d6ae1-2357-4d1a-a979-34cef2f72b08
+				summarizeBy: none
+				sourceColumn: cod_fornecedor
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_empresa
+				dataType: string
+				lineageTag: 4d52622f-c8ee-452a-ae81-0b3c674b6c37
+				summarizeBy: none
+				sourceColumn: nome_empresa
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Dim_Fornecedor = m
+				mode: import
+				source =
+						let
+						    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_fornecedor, #(lf)#(tab)nome_empresa#(lf)FROM dw.dim_fornecedor df #(lf)WHERE exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.dim_produtos dp#(lf)#(tab)#(tab)#(tab)  where df.cod_fornecedor = dp.cod_fornecedor)", null, [EnableFolding=true])
+						in
+						    Fonte
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table Dim_Funcionario
+			lineageTag: 70d829a4-5c84-4b89-ab1a-8f4198947376
+
+			column cod_funcionario
+				dataType: int64
+				formatString: 0
+				lineageTag: dc584908-22ca-4eac-a63d-115d7025eca6
+				summarizeBy: none
+				sourceColumn: cod_funcionario
+
+				annotation SummarizationSetBy = Automatic
+
+			column cargo
+				dataType: string
+				lineageTag: c804cd04-7863-4a47-bd0d-8261b4e6190b
+				summarizeBy: none
+				sourceColumn: cargo
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_completo
+				dataType: string
+				lineageTag: a2ffce45-bc12-4ef4-a528-8b131168f25b
+				summarizeBy: none
+				sourceColumn: nome_completo
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Dim_Funcionario = m
+				mode: import
+				source =
+						let
+						    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT cod_funcionario, #(lf)#(tab)cargo, #(lf)#(tab)nome_completo#(lf)FROM dw.dim_funcionario df #(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp#(lf)#(tab)#(tab)#(tab)  where df.cod_funcionario = fp.cod_funcionario)", null, [EnableFolding=true])
+						in
+						    Fonte
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table _MomentoAtualizacao
+			lineageTag: db366c24-23c4-4452-8b18-6e6ee17afffe
+
+			column Atualização
+				dataType: dateTime
+				formatString: General Date
+				lineageTag: 96b302f6-1400-4063-b0b8-1d286e210971
+				summarizeBy: none
+				sourceColumn: Atualização
+
+				variation Variation
+					isDefault
+					relationship: 31ec8d85-b494-46ee-9f5a-25cd32295972
+					defaultHierarchy: LocalDateTable_d9ec1df6-eb16-4663-88f2-2b186d60e945.'Hierarquia de datas'
+
+				annotation SummarizationSetBy = Automatic
+
+			partition _MomentoAtualizacao = m
+				mode: import
+				source =
+						let
+						    Fonte = DateTimeZone.SwitchZone(DateTimeZone.LocalNow(),-3),
+						    #"Convertido para Tabela" = #table(1, {{Fonte}}),
+						    #"Colunas Renomeadas" = Table.RenameColumns(#"Convertido para Tabela",{{"Column1", "Atualização"}}),
+						    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"Atualização", type datetimezone}})
+						in
+						    #"Tipo Alterado"
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table LocalDateTable_d9ec1df6-eb16-4663-88f2-2b186d60e945
+			isHidden
+			showAsVariationsOnly
+			lineageTag: 848948ec-74ca-49dc-8d88-43fded0aa29d
+
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: f58b19b4-9f02-4a59-b4f2-3a882cc43bc0
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Ano = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 9e973a95-32aa-4af2-879a-7d6ed269335f
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 5c30a484-5aea-4ed0-a23c-5dc350dc68f8
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Mês = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 1e66559b-350d-4b97-b0f8-52516c3ba985
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 9bb3eaad-12e4-4e47-a4e3-33a8117a2581
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Trimestre = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: b4f9bc30-427a-41c8-ab02-13eba8303bfa
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Dia = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 82c67a9f-7332-4a00-876d-a78b0d973da2
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Hierarquia de datas'
+				lineageTag: 543e100a-d73c-4b85-bc29-c488b480d533
+
+				level Ano
+					lineageTag: 03810b5b-b738-4775-b3d1-ff219aee1f10
+					column: Ano
+
+				level Trimestre
+					lineageTag: 294f7cb6-c565-4645-ab0d-68e47f35fb08
+					column: Trimestre
+
+				level Mês
+					lineageTag: 3b767bb3-c07a-487d-be2b-8a27c431a40a
+					column: Mês
+
+				level Dia
+					lineageTag: 4f1c3e81-cb17-485a-a6e5-a39fa4071e17
+					column: Dia
+
+				annotation TemplateId = DateHierarchy
+
+			partition LocalDateTable_d9ec1df6-eb16-4663-88f2-2b186d60e945 = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('_MomentoAtualizacao'[Atualização])), 1, 1), Date(Year(MAX('_MomentoAtualizacao'[Atualização])), 12, 31))
+
+			annotation __PBI_LocalDateTable = true
+
+		table _Medidas
+			lineageTag: fe7f6bbf-380a-46ef-a776-27ef7c1b1d36
+
+			measure 'Data Hora Atual' = ```
+					"Atualizado: " & SELECTEDVALUE(_MomentoAtualizacao[Atualização]) 
+					```
+				lineageTag: acda940a-8c68-4736-bdea-5b60390d45ce
+
+			measure valorVendas = sum(Fato_Pedido[val_pedido])
+				formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+				lineageTag: 712c6544-9620-4832-94b6-b74e6a6e060a
+
+				annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+			measure 'Volume Pedidos' = ```
+					sum(Fato_Pedido[quantidade]) 
+					```
+				formatString: #,0
+				lineageTag: 9385d422-a96b-4ec7-94d0-0edc102c6ea6
+
+			measure 'Quantidade Pedidos' = DISTINCTCOUNT(Fato_Pedido[cod_pedido])
+				formatString: 0
+				lineageTag: d2186500-8dbc-4116-8c41-a422b29b9ab9
+
+			measure 'Ticket Médio por Pedido' = ```
+					
+					DIVIDE(
+					    [valorVendas], 
+					    DISTINCTCOUNT(Fato_Pedido[cod_pedido]),
+					    0
+					)
+					```
+				lineageTag: 1d701b07-1ff2-436b-949d-4290fb60e6b6
+
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+			measure 'Média Itens por Pedido' = ```
+					
+					DIVIDE(
+					    [Volume Pedidos], 
+					    DISTINCTCOUNT(Fato_Pedido[cod_pedido]),
+					    0
+					)
+					```
+				formatString: 0
+				lineageTag: f2b35ebd-35e8-4bf9-9c5a-2160f5081e19
+
+				annotation PBI_FormatHint = {"isDecimal":true}
+
+			partition _Medidas = m
+				mode: import
+				source =
+						let
+						    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+						    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+						    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+						in
+						    #"Colunas Removidas"
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table Dim_Calendario
+			lineageTag: 150f53f5-4633-4345-a427-17e94e1c2a0f
+
+			column sk_tempo
+				dataType: int64
+				formatString: 0
+				lineageTag: 9e4f4522-bb53-4ccb-bdf0-f69548db3801
+				summarizeBy: sum
+				sourceColumn: sk_tempo
+
+				annotation SummarizationSetBy = Automatic
+
+			column data_completa
+				dataType: dateTime
+				formatString: General Date
+				lineageTag: 51590565-bb1e-4c0d-b3a6-2f95d20190a3
+				summarizeBy: none
+				sourceColumn: data_completa
+
+				variation Variation
+					isDefault
+					relationship: 6f19deea-d156-49c8-86fb-70a9a2e1b6b0
+					defaultHierarchy: LocalDateTable_4f2218dc-856c-49c5-99d5-bd7eef69c773.'Hierarquia de datas'
+
+				annotation SummarizationSetBy = Automatic
+
+			column ano
+				dataType: int64
+				formatString: 0
+				lineageTag: 7ea33653-366c-458e-9253-99912d39d5ff
+				summarizeBy: sum
+				sourceColumn: ano
+
+				annotation SummarizationSetBy = Automatic
+
+			column mes
+				dataType: int64
+				formatString: 0
+				lineageTag: 07a76395-22b1-45c4-a4f7-d7c9d9bd09ec
+				summarizeBy: sum
+				sourceColumn: mes
+
+				annotation SummarizationSetBy = Automatic
+
+			column dia
+				dataType: int64
+				formatString: 0
+				lineageTag: ea39b51d-ea42-4918-a6c0-610b959d4a46
+				summarizeBy: sum
+				sourceColumn: dia
+
+				annotation SummarizationSetBy = Automatic
+
+			column dia_ano
+				dataType: int64
+				formatString: 0
+				lineageTag: ec6dd917-5e72-4030-8445-83c032bbc286
+				summarizeBy: sum
+				sourceColumn: dia_ano
+
+				annotation SummarizationSetBy = Automatic
+
+			column trimestre
+				dataType: int64
+				formatString: 0
+				lineageTag: eaa0a37d-1d57-40f4-a9d8-926c0463360a
+				summarizeBy: sum
+				sourceColumn: trimestre
+
+				annotation SummarizationSetBy = Automatic
+
+			column semestre
+				dataType: int64
+				formatString: 0
+				lineageTag: c72988b2-028e-47d9-8f73-b3eef4c81015
+				summarizeBy: sum
+				sourceColumn: semestre
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_mes
+				dataType: string
+				lineageTag: 6e942d4c-2ca1-4b26-a791-30d6ced2b50c
+				summarizeBy: none
+				sourceColumn: nome_mes
+
+				annotation SummarizationSetBy = Automatic
+
+			column nome_dia_semana
+				dataType: string
+				lineageTag: b7b07cd6-3a00-462e-a167-c28500077321
+				summarizeBy: none
+				sourceColumn: nome_dia_semana
+
+				annotation SummarizationSetBy = Automatic
+
+			column dia_semana_num
+				dataType: int64
+				formatString: 0
+				lineageTag: 32f3f09c-736d-4fb4-b152-cb84b8bd2578
+				summarizeBy: sum
+				sourceColumn: dia_semana_num
+
+				annotation SummarizationSetBy = Automatic
+
+			column fim_semana
+				dataType: boolean
+				formatString: """TRUE"";""TRUE"";""FALSE"""
+				lineageTag: 3fd6aef4-ad89-454f-bdae-7ae2ca75434e
+				summarizeBy: none
+				sourceColumn: fim_semana
+
+				annotation SummarizationSetBy = Automatic
+
+			column mes_ano
+				dataType: string
+				lineageTag: e4a3d2a1-b6e7-4bd6-a668-4be9f6363e54
+				summarizeBy: none
+				sourceColumn: mes_ano
+				sortByColumn: classificador_ano_mes
+
+				changedProperty = SortByColumn
+
+				annotation SummarizationSetBy = Automatic
+
+			column classificador_ano_mes = ```
+					(Dim_Calendario[ano]*100) + Dim_Calendario[mes] 
+					```
+				formatString: 0
+				lineageTag: 9ff85a47-964f-4bb8-bdc6-92ab325fab8e
+				summarizeBy: sum
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Dim_Calendario = m
+				mode: import
+				source =
+						let
+						    Fonte = Value.NativeQuery(PostgreSQL.Database("estudos-dev01.c1me8kw6qipl.us-east-2.rds.amazonaws.com", "northwind"), "SELECT sk_tempo, #(lf)#(tab)data_completa, #(lf)#(tab)ano, #(lf)#(tab)mes, #(lf)#(tab)dia, #(lf)#(tab)dia_ano, #(lf)#(tab)trimestre, #(lf)#(tab)semestre, #(lf)#(tab)nome_mes, #(lf)#(tab)nome_dia_semana, #(lf)#(tab)dia_semana_num, #(lf)#(tab)fim_semana, #(lf)#(tab)mes_ano#(lf)FROM dw.dim_tempo dt #(lf)where exists (select 1#(lf)#(tab)#(tab)#(tab)  from dw.fato_pedidos fp #(lf)#(tab)#(tab)#(tab)  where dt.data_completa = fp.data_pedido::date)", null, [EnableFolding=true])
+						in
+						    Fonte
+
+			annotation PBI_NavigationStepName = Navegação
+
+			annotation PBI_ResultType = Table
+
+		table LocalDateTable_4f2218dc-856c-49c5-99d5-bd7eef69c773
+			isHidden
+			showAsVariationsOnly
+			lineageTag: 75739a0d-7719-4380-a968-b29d9d1be279
+
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: 40282a99-561e-4e2e-80f3-da1867211714
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Ano = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 7f85437d-4544-4340-94f2-260e1842b399
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 7eead5ba-de66-4d6d-94eb-254847ad31aa
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Mês = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 54333cfc-3724-4b9d-92ac-d0bbbc2d4e64
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: d38e27ea-1dac-4a76-ae16-b0d5aaf3279a
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Trimestre = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: e64a2c51-2bf5-4aed-8cb1-8c380ca75716
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Dia = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 9386ac1c-2028-41cf-b964-7410bbad10ab
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Hierarquia de datas'
+				lineageTag: 093370b3-e620-4a14-94fc-92d0a8526ea6
+
+				level Ano
+					lineageTag: 422063f6-bf04-48d8-ba5a-f43d6204a94f
+					column: Ano
+
+				level Trimestre
+					lineageTag: fbe4eb1d-5bd0-44d8-b2ef-1008b5e17805
+					column: Trimestre
+
+				level Mês
+					lineageTag: 23230d55-f6bd-44e4-932f-9e5cf6f429c0
+					column: Mês
+
+				level Dia
+					lineageTag: b1a10843-1179-441a-a894-afb18320d62f
+					column: Dia
+
+				annotation TemplateId = DateHierarchy
+
+			partition LocalDateTable_4f2218dc-856c-49c5-99d5-bd7eef69c773 = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Dim_Calendario'[data_completa])), 1, 1), Date(Year(MAX('Dim_Calendario'[data_completa])), 12, 31))
+
+			annotation __PBI_LocalDateTable = true
+
+		relationship 1cf37141-dafc-4064-b401-d84001d78e8b
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Dim_Produto.data_execucao
+			toColumn: LocalDateTable_d85d3d0c-6f11-43ab-bc6f-31a40ee64d8e.Date
+
+		relationship AutoDetected_215ae586-f4f9-4ff0-93c9-4400a5079d63
+			fromColumn: Fato_Pedido.cod_cliente
+			toColumn: Dim_Cliente.cod_cliente
+
+		relationship AutoDetected_8f810176-5303-4b92-890d-7d5418c937a6
+			fromColumn: Fato_Pedido.cod_funcionario
+			toColumn: Dim_Funcionario.cod_funcionario
+
+		relationship AutoDetected_d191009a-dd7e-44ed-956e-723fcceb2386
+			fromColumn: Fato_Pedido.cod_expedidor
+			toColumn: Dim_Expedidor.cod_expedidor
+
+		relationship AutoDetected_e4d6c69c-9206-4405-86a2-dcb794244a6a
+			fromColumn: Fato_Pedido.cod_produto
+			toColumn: Dim_Produto.cod_produto
+
+		relationship AutoDetected_4d02901d-5f23-41d1-bc1c-af3622d43d91
+			fromColumn: Dim_Produto.cod_fornecedor
+			toColumn: Dim_Fornecedor.cod_fornecedor
+
+		relationship 31ec8d85-b494-46ee-9f5a-25cd32295972
+			joinOnDateBehavior: datePartOnly
+			fromColumn: _MomentoAtualizacao.Atualização
+			toColumn: LocalDateTable_d9ec1df6-eb16-4663-88f2-2b186d60e945.Date
+
+		relationship 6f19deea-d156-49c8-86fb-70a9a2e1b6b0
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Dim_Calendario.data_completa
+			toColumn: LocalDateTable_4f2218dc-856c-49c5-99d5-bd7eef69c773.Date
+
+		relationship ba5a58ae-5361-1313-6973-1ad581ab0a24
+			fromColumn: Fato_Pedido.data_pedido
+			toColumn: Dim_Calendario.data_completa
+
+		relationship 06d10084-7684-41aa-92f0-239f6dc028e6
+			isActive: false
+			fromColumn: Fato_Pedido.data_desejada
+			toColumn: Dim_Calendario.data_completa
+
+		relationship 9e530404-600e-2396-f2be-4a58091bb120
+			isActive: false
+			fromColumn: Fato_Pedido.data_expedicao
+			toColumn: Dim_Calendario.data_completa
+
+		cultureInfo pt-BR
+
+			linguisticMetadata = {"Version":"4.1.0","Language":"en-US","Entities":{"fato_pedido":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido"}},"State":"Generated","Terms":[{"fato pedido":{"State":"Generated"}},{"Fato_Pedido":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.cod_pedido":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"cod_pedido"}},"State":"Generated","Terms":[{"cod pedido":{"State":"Generated"}},{"cod_pedido":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.cod_cliente":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"cod_cliente"}},"State":"Generated","Visibility":{"Value":"Hidden"},"Terms":[{"cod cliente":{"State":"Generated"}},{"cod_cliente":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.cod_funcionario":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"cod_funcionario"}},"State":"Generated","Visibility":{"Value":"Hidden"},"Terms":[{"cod funcionario":{"State":"Generated"}},{"cod_funcionario":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.data_pedido":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"data_pedido"}},"State":"Generated","Terms":[{"data pedido":{"State":"Generated"}},{"data_pedido":{"Type":"Noun","State":"Generated","Weight":0.99}},{"date":{"State":"Generated","Weight":0.7}},{"information pedido":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"fact pedido":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"info pedido":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"statistic pedido":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"document pedido":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"figure pedido":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"record pedido":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}}],"SemanticType":"Time"},"fato_pedido.data_desejada":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"data_desejada"}},"State":"Generated","Terms":[{"data desejada":{"State":"Generated"}},{"data_desejada":{"Type":"Noun","State":"Generated","Weight":0.99}},{"date":{"State":"Generated","Weight":0.7}},{"information desejada":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"fact desejada":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"info desejada":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"statistic desejada":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"document desejada":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"figure desejada":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"record desejada":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}}],"SemanticType":"Time"},"fato_pedido.data_expedicao":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"data_expedicao"}},"State":"Generated","Terms":[{"data expedicao":{"State":"Generated"}},{"data_expedicao":{"Type":"Noun","State":"Generated","Weight":0.99}},{"date":{"State":"Generated","Weight":0.7}},{"information expedicao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"fact expedicao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"info expedicao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"statistic expedicao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"document expedicao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"figure expedicao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"record expedicao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}}],"SemanticType":"Time"},"fato_pedido.cod_expedidor":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"cod_expedidor"}},"State":"Generated","Visibility":{"Value":"Hidden"},"Terms":[{"cod expedidor":{"State":"Generated"}},{"cod_expedidor":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.regiao_expedicao":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"regiao_expedicao"}},"State":"Generated","Terms":[{"regiao expedicao":{"State":"Generated"}},{"regiao_expedicao":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.pais_extedicao":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"pais_extedicao"}},"State":"Generated","Terms":[{"pais extedicao":{"State":"Generated"}},{"pais_extedicao":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.cod_produto":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"cod_produto"}},"State":"Generated","Visibility":{"Value":"Hidden"},"Terms":[{"cod produto":{"State":"Generated"}},{"cod_produto":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"fato_pedido.quantidade":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"quantidade"}},"State":"Generated","Terms":[{"quantidade":{"State":"Generated"}}]},"fato_pedido.val_pedido":{"Definition":{"Binding":{"ConceptualEntity":"Fato_Pedido","ConceptualProperty":"val_pedido"}},"State":"Generated","Terms":[{"val pedido":{"State":"Generated"}},{"val_pedido":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto"}},"State":"Generated","Terms":[{"dim produto":{"State":"Generated"}},{"Dim_Produto":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.cod_produto":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"cod_produto"}},"State":"Generated","Terms":[{"cod produto":{"State":"Generated"}},{"cod_produto":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.nome_produto":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"nome_produto"}},"State":"Generated","Terms":[{"nome produto":{"State":"Generated"}},{"nome_produto":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.cod_categoria":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"cod_categoria"}},"State":"Generated","Terms":[{"cod categoria":{"State":"Generated"}},{"cod_categoria":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.status":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"status"}},"State":"Generated","Terms":[{"status":{"State":"Generated"}},{"category":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.736}},{"importance":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.736}},{"prestige":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.736}},{"prominence":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.736}},{"condition":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.714}},{"class":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.714}},{"grade":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.714}},{"level":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.714}},{"position":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.714}}]},"dim_produto.nome_categoria":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"nome_categoria"}},"State":"Generated","Terms":[{"nome categoria":{"State":"Generated"}},{"nome_categoria":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.descricao":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"descricao"}},"State":"Generated","Terms":[{"descricao":{"State":"Generated"}}]},"dim_produto.data_execucao":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"data_execucao"}},"State":"Generated","Terms":[{"data execucao":{"State":"Generated"}},{"data_execucao":{"Type":"Noun","State":"Generated","Weight":0.99}},{"date":{"State":"Generated","Weight":0.7}},{"information execucao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"fact execucao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"info execucao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"statistic execucao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"document execucao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"figure execucao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"record execucao":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}}],"SemanticType":"Time"},"dim_produto.data_execucao.hierarquia_de_data":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","VariationSource":"data_execucao","VariationSet":"Variation","Hierarchy":"Hierarquia de datas"}},"State":"Generated","Terms":[{"hierarquia de data":{"State":"Generated"}},{"hierarquia de information":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de fact":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de info":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de statistic":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de document":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}},{"hierarquia de figure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}},{"hierarquia de record":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}}]},"dim_produto.data_execucao.ano":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","VariationSource":"data_execucao","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Ano"}},"State":"Generated","Terms":[{"ano":{"State":"Generated"}},{"data execucao ano":{"State":"Generated"}},{"information execucao ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact execucao ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info execucao ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic execucao ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document execucao ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure execucao ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record execucao ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_produto.data_execucao.trimestre":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","VariationSource":"data_execucao","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Trimestre"}},"State":"Generated","Terms":[{"trimestre":{"State":"Generated"}},{"data execucao trimestre":{"State":"Generated"}},{"information execucao trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact execucao trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info execucao trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic execucao trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document execucao trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure execucao trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record execucao trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_produto.data_execucao.mê":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","VariationSource":"data_execucao","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Mês"}},"State":"Generated","Terms":[{"mê":{"State":"Generated"}},{"data execucao mê":{"State":"Generated"}},{"information execucao mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact execucao mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info execucao mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic execucao mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document execucao mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure execucao mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record execucao mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_produto.data_execucao.dia":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","VariationSource":"data_execucao","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Dia"}},"State":"Generated","Terms":[{"dia":{"State":"Generated"}},{"data execucao dia":{"State":"Generated"}},{"information execucao dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact execucao dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info execucao dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic execucao dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document execucao dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure execucao dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record execucao dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_produto.cod_fornecedor":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"cod_fornecedor"}},"State":"Generated","Visibility":{"Value":"Hidden"},"Terms":[{"cod fornecedor":{"State":"Generated"}},{"cod_fornecedor":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.preco_unitario":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"preco_unitario"}},"State":"Generated","Terms":[{"preco unitario":{"State":"Generated"}},{"preco_unitario":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.qtd_livre":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"qtd_livre"}},"State":"Generated","Terms":[{"qtd livre":{"State":"Generated"}},{"qtd_livre":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.qtd_reservada":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"qtd_reservada"}},"State":"Generated","Terms":[{"qtd reservada":{"State":"Generated"}},{"qtd_reservada":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_produto.qtd_minimum":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"qtd_minima"}},"State":"Generated","Terms":[{"qtd minimum":{"State":"Generated"}},{"qtd_minima":{"Type":"Noun","State":"Generated","Weight":0.99}},{"qtd iota":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.475}},{"qtd modicum":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.475}},{"qtd smidgeon":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.475}},{"qtd smidgen":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.475}},{"qtd least":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.461}},{"qtd jot":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.461}},{"qtd speck":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.461}}]},"dim_produto.status_desc":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Produto","ConceptualProperty":"status_desc"}},"State":"Generated","Terms":[{"status desc":{"State":"Generated"}},{"status_desc":{"Type":"Noun","State":"Generated","Weight":0.99}},{"status description":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.75}},{"category desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"importance desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"prestige desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"prominence desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"condition desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"class desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"grade desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"level desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"position desc":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}}]},"dim_cliente":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Cliente"}},"State":"Generated","Terms":[{"dim cliente":{"State":"Generated"}},{"Dim_Cliente":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_cliente.cod_cliente":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Cliente","ConceptualProperty":"cod_cliente"}},"State":"Generated","Terms":[{"cod cliente":{"State":"Generated"}},{"cod_cliente":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_cliente.nome_empresa":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Cliente","ConceptualProperty":"nome_empresa"}},"State":"Generated","Terms":[{"nome empresa":{"State":"Generated"}},{"nome_empresa":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_cliente.nome_contato":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Cliente","ConceptualProperty":"nome_contato"}},"State":"Generated","Terms":[{"nome contato":{"State":"Generated"}},{"nome_contato":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_cliente.nome_cargo":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Cliente","ConceptualProperty":"nome_cargo"}},"State":"Generated","Terms":[{"nome cargo":{"State":"Generated"}},{"nome_cargo":{"Type":"Noun","State":"Generated","Weight":0.99}},{"nome consignment":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.5}},{"nome shipment":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.5}},{"nome payload":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.5}},{"nome load":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}},{"nome freight":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}}]},"dim_cliente.regiao":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Cliente","ConceptualProperty":"regiao"}},"State":"Generated","Terms":[{"regiao":{"State":"Generated"}}]},"dim_cliente.pais":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Cliente","ConceptualProperty":"pais"}},"State":"Generated","Terms":[{"pais":{"State":"Generated"}}]},"dim_expedidor":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Expedidor"}},"State":"Generated","Terms":[{"dim expedidor":{"State":"Generated"}},{"Dim_Expedidor":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_expedidor.cod_expedidor":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Expedidor","ConceptualProperty":"cod_expedidor"}},"State":"Generated","Terms":[{"cod expedidor":{"State":"Generated"}},{"cod_expedidor":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_expedidor.nome_empresa":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Expedidor","ConceptualProperty":"nome_empresa"}},"State":"Generated","Terms":[{"nome empresa":{"State":"Generated"}},{"nome_empresa":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_fornecedor":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Fornecedor"}},"State":"Generated","Terms":[{"dim fornecedor":{"State":"Generated"}},{"Dim_Fornecedor":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_fornecedor.cod_fornecedor":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Fornecedor","ConceptualProperty":"cod_fornecedor"}},"State":"Generated","Terms":[{"cod fornecedor":{"State":"Generated"}},{"cod_fornecedor":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_fornecedor.nome_empresa":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Fornecedor","ConceptualProperty":"nome_empresa"}},"State":"Generated","Terms":[{"nome empresa":{"State":"Generated"}},{"nome_empresa":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_funcionario":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Funcionario"}},"State":"Generated","Terms":[{"dim funcionario":{"State":"Generated"}},{"Dim_Funcionario":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_funcionario.cod_funcionario":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Funcionario","ConceptualProperty":"cod_funcionario"}},"State":"Generated","Terms":[{"cod funcionario":{"State":"Generated"}},{"cod_funcionario":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_funcionario.cargo":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Funcionario","ConceptualProperty":"cargo"}},"State":"Generated","Terms":[{"cargo":{"State":"Generated"}},{"consignment":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.491}},{"shipment":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.491}},{"payload":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.491}},{"load":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.476}},{"freight":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.476}}]},"dim_funcionario.nome_completo":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Funcionario","ConceptualProperty":"nome_completo"}},"State":"Generated","Terms":[{"nome completo":{"State":"Generated"}},{"nome_completo":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"entity__MomentoAtualizacao":{"Definition":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"}},"State":"Generated","Terms":[{"_MomentoAtualizacao":{"State":"Generated"}}]},"entity__MomentoAtualizacao.atualização":{"Definition":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao","ConceptualProperty":"Atualização"}},"State":"Generated","Terms":[{"atualização":{"State":"Generated"}},{"date":{"State":"Generated","Weight":0.7}}],"SemanticType":"Time"},"entity__MomentoAtualizacao.atualização.hierarquia_de_data":{"Definition":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao","VariationSource":"Atualização","VariationSet":"Variation","Hierarchy":"Hierarquia de datas"}},"State":"Generated","Terms":[{"hierarquia de data":{"State":"Generated"}},{"hierarquia de information":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de fact":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de info":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de statistic":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de document":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}},{"hierarquia de figure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}},{"hierarquia de record":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}}]},"entity__MomentoAtualizacao.atualização.ano":{"Definition":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao","VariationSource":"Atualização","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Ano"}},"State":"Generated","Terms":[{"ano":{"State":"Generated"}},{"atualização ano":{"State":"Generated"}}]},"entity__MomentoAtualizacao.atualização.trimestre":{"Definition":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao","VariationSource":"Atualização","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Trimestre"}},"State":"Generated","Terms":[{"trimestre":{"State":"Generated"}},{"atualização trimestre":{"State":"Generated"}}]},"entity__MomentoAtualizacao.atualização.mê":{"Definition":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao","VariationSource":"Atualização","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Mês"}},"State":"Generated","Terms":[{"mê":{"State":"Generated"}},{"atualização mê":{"State":"Generated"}}]},"entity__MomentoAtualizacao.atualização.dia":{"Definition":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao","VariationSource":"Atualização","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Dia"}},"State":"Generated","Terms":[{"dia":{"State":"Generated"}},{"atualização dia":{"State":"Generated"}}]},"entity__medida":{"Definition":{"Binding":{"ConceptualEntity":"_Medidas"}},"State":"Generated","Terms":[{"_medida":{"State":"Generated"}}]},"entity__medida.data_hora_atual":{"Definition":{"Binding":{"ConceptualEntity":"_Medidas","ConceptualProperty":"Data Hora Atual"}},"State":"Generated","Terms":[{"data hora atual":{"State":"Generated"}},{"information hora atual":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact hora atual":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info hora atual":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic hora atual":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document hora atual":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure hora atual":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record hora atual":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"entity__medida.valor_vendas":{"Definition":{"Binding":{"ConceptualEntity":"_Medidas","ConceptualProperty":"valorVendas"}},"State":"Generated","Terms":[{"valor vendas":{"State":"Generated"}},{"valorVendas":{"Type":"Noun","State":"Generated","Weight":0.99}},{"Total Vendas":{"State":"Suggested","Source":{"Type":"External","Agent":"PowerBI.VisualColumnRename"},"Weight":0.9}}]},"entity__medida.volume_pedidos":{"Definition":{"Binding":{"ConceptualEntity":"_Medidas","ConceptualProperty":"Volume Pedidos"}},"State":"Generated","Terms":[{"volume pedidos":{"State":"Generated"}},{"Volume de Itens":{"State":"Suggested","Source":{"Type":"External","Agent":"PowerBI.VisualColumnRename"},"Weight":0.9}}]},"entity__medida.quantidade_pedidos":{"Definition":{"Binding":{"ConceptualEntity":"_Medidas","ConceptualProperty":"Quantidade Pedidos"}},"State":"Generated","Terms":[{"quantidade pedidos":{"State":"Generated"}}]},"entity__medida.ticket_médio_por_pedido":{"Definition":{"Binding":{"ConceptualEntity":"_Medidas","ConceptualProperty":"Ticket Médio por Pedido"}},"State":"Generated","Terms":[{"ticket médio por pedido":{"State":"Generated"}}]},"entity__medida.média_itens_por_pedido":{"Definition":{"Binding":{"ConceptualEntity":"_Medidas","ConceptualProperty":"Média Itens por Pedido"}},"State":"Generated","Terms":[{"média itens por pedido":{"State":"Generated"}}]},"dim_calendario":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario"}},"State":"Generated","Terms":[{"dim calendario":{"State":"Generated"}},{"Dim_Calendario":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_calendario.sk_tempo":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"sk_tempo"}},"State":"Generated","Terms":[{"sk tempo":{"State":"Generated"}},{"sk_tempo":{"Type":"Noun","State":"Generated","Weight":0.99}},{"tempo":{"State":"Generated","Weight":0.97}},{"sk rhythm":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.5}},{"sk cadence":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.5}},{"rhythm":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.491}},{"cadence":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.491}},{"sk beat":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}},{"sk speed":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}},{"sk pulse":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}},{"sk measure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}},{"sk pace":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}},{"sk stroke":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.485}}]},"dim_calendario.data_completa":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"data_completa"}},"State":"Generated","Terms":[{"data completa":{"State":"Generated"}},{"data_completa":{"Type":"Noun","State":"Generated","Weight":0.99}},{"date":{"State":"Generated","Weight":0.7}},{"information completa":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"fact completa":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"info completa":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"statistic completa":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.6}},{"document completa":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"figure completa":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}},{"record completa":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.582}}],"SemanticType":"Time"},"dim_calendario.data_completa.hierarquia_de_data":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","VariationSource":"data_completa","VariationSet":"Variation","Hierarchy":"Hierarquia de datas"}},"State":"Generated","Terms":[{"hierarquia de data":{"State":"Generated"}},{"hierarquia de information":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de fact":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de info":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de statistic":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.762}},{"hierarquia de document":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}},{"hierarquia de figure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}},{"hierarquia de record":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}}]},"dim_calendario.data_completa.ano":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","VariationSource":"data_completa","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Ano"}},"State":"Generated","Terms":[{"ano":{"State":"Generated"}},{"data completa ano":{"State":"Generated"}},{"information completa ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact completa ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info completa ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic completa ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document completa ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure completa ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record completa ano":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_calendario.data_completa.trimestre":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","VariationSource":"data_completa","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Trimestre"}},"State":"Generated","Terms":[{"trimestre":{"State":"Generated"}},{"data completa trimestre":{"State":"Generated"}},{"information completa trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact completa trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info completa trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic completa trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document completa trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure completa trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record completa trimestre":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_calendario.data_completa.mê":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","VariationSource":"data_completa","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Mês"}},"State":"Generated","Terms":[{"mê":{"State":"Generated"}},{"data completa mê":{"State":"Generated"}},{"information completa mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact completa mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info completa mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic completa mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document completa mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure completa mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record completa mê":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_calendario.data_completa.dia":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","VariationSource":"data_completa","VariationSet":"Variation","Hierarchy":"Hierarquia de datas","HierarchyLevel":"Dia"}},"State":"Generated","Terms":[{"dia":{"State":"Generated"}},{"data completa dia":{"State":"Generated"}},{"information completa dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"fact completa dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"info completa dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"statistic completa dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.609}},{"document completa dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"figure completa dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}},{"record completa dia":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.591}}]},"dim_calendario.ano":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"ano"}},"State":"Generated","Terms":[{"ano":{"State":"Generated"}}]},"dim_calendario.me":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"mes"}},"State":"Generated","Terms":[{"me":{"State":"Generated"}}]},"dim_calendario.dia":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"dia"}},"State":"Generated","Terms":[{"dia":{"State":"Generated"}}]},"dim_calendario.dia_ano":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"dia_ano"}},"State":"Generated","Terms":[{"dia ano":{"State":"Generated"}},{"dia_ano":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_calendario.trimestre":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"trimestre"}},"State":"Generated","Terms":[{"trimestre":{"State":"Generated"}}]},"dim_calendario.semestre":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"semestre"}},"State":"Generated","Terms":[{"semestre":{"State":"Generated"}}]},"dim_calendario.nome_me":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"nome_mes"}},"State":"Generated","Terms":[{"nome me":{"State":"Generated"}},{"nome_mes":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_calendario.nome_dia_semana":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"nome_dia_semana"}},"State":"Generated","Terms":[{"nome dia semana":{"State":"Generated"}},{"nome_dia_semana":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_calendario.dia_semana_num":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"dia_semana_num"}},"State":"Generated","Terms":[{"dia semana num":{"State":"Generated"}},{"dia_semana_num":{"Type":"Noun","State":"Generated","Weight":0.99}},{"dia semana number":{"Type":"Noun","State":"Suggested","Source":{"Agent":"Thesaurus"},"Weight":0.739}}]},"dim_calendario.fim_semana":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"fim_semana"}},"State":"Generated","Terms":[{"fim semana":{"State":"Generated"}},{"fim_semana":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_calendario.mes_ano":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"mes_ano"}},"State":"Generated","Terms":[{"mes ano":{"State":"Generated"}},{"me ano":{"Type":"Noun","State":"Generated","Weight":0.78}},{"mes_ano":{"Type":"Noun","State":"Generated","Weight":0.99}}]},"dim_calendario.classificador_ano_me":{"Definition":{"Binding":{"ConceptualEntity":"Dim_Calendario","ConceptualProperty":"classificador_ano_mes"}},"State":"Generated","Terms":[{"classificador ano me":{"State":"Generated"}},{"classificador_ano_mes":{"Type":"Noun","State":"Generated","Weight":0.99}}]}},"Relationships":{"dim_calendario_data_completa_mê_has_dim_calendario_data_completa_dia":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa.mê":{"Target":{"Entity":"dim_calendario.data_completa.mê"}},"dim_calendario.data_completa.dia":{"Target":{"Entity":"dim_calendario.data_completa.dia"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.mê"},"Object":{"Role":"dim_calendario.data_completa.dia"}},"State":"Generated","Weight":0.99,"ID":"mê_have_dias"},{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.dia"},"Object":{"Role":"dim_calendario.data_completa.mê"}},"State":"Generated","Weight":0.99,"ID":"dias_have_mê"},{"Preposition":{"Subject":{"Role":"dim_calendario.data_completa.dia"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"dim_calendario.data_completa.mê"}},"State":"Generated","Weight":0.99,"ID":"dias_are_in_mê2"}]},"dim_calendario_data_completa_trimestre_has_dim_calendario_data_completa_mê":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa.trimestre":{"Target":{"Entity":"dim_calendario.data_completa.trimestre"}},"dim_calendario.data_completa.mê":{"Target":{"Entity":"dim_calendario.data_completa.mê"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.trimestre"},"Object":{"Role":"dim_calendario.data_completa.mê"}},"State":"Generated","Weight":0.99,"ID":"trimestres_have_mê"},{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.mê"},"Object":{"Role":"dim_calendario.data_completa.trimestre"}},"State":"Generated","Weight":0.99,"ID":"mê_have_trimestres"},{"Preposition":{"Subject":{"Role":"dim_calendario.data_completa.mê"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"dim_calendario.data_completa.trimestre"}},"State":"Generated","Weight":0.99,"ID":"mê_are_in_trimestres2"}]},"dim_calendario_data_completa_ano_has_dim_calendario_data_completa_trimestre":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa.ano":{"Target":{"Entity":"dim_calendario.data_completa.ano"}},"dim_calendario.data_completa.trimestre":{"Target":{"Entity":"dim_calendario.data_completa.trimestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.ano"},"Object":{"Role":"dim_calendario.data_completa.trimestre"}},"State":"Generated","Weight":0.99,"ID":"anos_have_trimestres"},{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.trimestre"},"Object":{"Role":"dim_calendario.data_completa.ano"}},"State":"Generated","Weight":0.99,"ID":"trimestres_have_anos"},{"Preposition":{"Subject":{"Role":"dim_calendario.data_completa.trimestre"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"dim_calendario.data_completa.ano"}},"State":"Generated","Weight":0.99,"ID":"trimestres_are_in_anos2"}]},"dim_calendario_data_completa_hierarquia_de_data_has_dim_calendario_data_completa_dia":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa.hierarquia_de_data":{"Target":{"Entity":"dim_calendario.data_completa.hierarquia_de_data"}},"dim_calendario.data_completa.dia":{"Target":{"Entity":"dim_calendario.data_completa.dia"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.hierarquia_de_data"},"Object":{"Role":"dim_calendario.data_completa.dia"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_dias"}]},"dim_calendario_data_completa_hierarquia_de_data_has_dim_calendario_data_completa_mê":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa.hierarquia_de_data":{"Target":{"Entity":"dim_calendario.data_completa.hierarquia_de_data"}},"dim_calendario.data_completa.mê":{"Target":{"Entity":"dim_calendario.data_completa.mê"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.hierarquia_de_data"},"Object":{"Role":"dim_calendario.data_completa.mê"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_mê"}]},"dim_calendario_data_completa_hierarquia_de_data_has_dim_calendario_data_completa_trimestre":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa.hierarquia_de_data":{"Target":{"Entity":"dim_calendario.data_completa.hierarquia_de_data"}},"dim_calendario.data_completa.trimestre":{"Target":{"Entity":"dim_calendario.data_completa.trimestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.hierarquia_de_data"},"Object":{"Role":"dim_calendario.data_completa.trimestre"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_trimestres"}]},"dim_calendario_data_completa_hierarquia_de_data_has_dim_calendario_data_completa_ano":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa.hierarquia_de_data":{"Target":{"Entity":"dim_calendario.data_completa.hierarquia_de_data"}},"dim_calendario.data_completa.ano":{"Target":{"Entity":"dim_calendario.data_completa.ano"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa.hierarquia_de_data"},"Object":{"Role":"dim_calendario.data_completa.ano"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_anos"}]},"dim_calendario_data_completa_has_hierarquia_de_data":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario.data_completa":{"Target":{"Entity":"dim_calendario.data_completa"}},"dim_calendario.data_completa.hierarquia_de_data":{"Target":{"Entity":"dim_calendario.data_completa.hierarquia_de_data"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario.data_completa"},"Object":{"Role":"dim_calendario.data_completa.hierarquia_de_data"}},"State":"Generated","Weight":0.99,"ID":"data_completas_have_hierarquia_de_data"}]},"entity__MomentoAtualizacao_atualização_mê_has_entity__MomentoAtualizacao_atualização_dia":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização.mê":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.mê"}},"entity__MomentoAtualizacao.atualização.dia":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.dia"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.mê"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.dia"}},"State":"Generated","Weight":0.99,"ID":"mê_have_dias1"},{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.dia"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.mê"}},"State":"Generated","Weight":0.99,"ID":"dias_have_mê1"},{"Preposition":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.dia"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"entity__MomentoAtualizacao.atualização.mê"}},"State":"Generated","Weight":0.99,"ID":"dias_are_in_mê1"}]},"entity__MomentoAtualizacao_atualização_trimestre_has_entity__MomentoAtualizacao_atualização_mê":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização.trimestre":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.trimestre"}},"entity__MomentoAtualizacao.atualização.mê":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.mê"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.trimestre"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.mê"}},"State":"Generated","Weight":0.99,"ID":"trimestres_have_mê1"},{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.mê"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.trimestre"}},"State":"Generated","Weight":0.99,"ID":"mê_have_trimestres1"},{"Preposition":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.mê"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"entity__MomentoAtualizacao.atualização.trimestre"}},"State":"Generated","Weight":0.99,"ID":"mê_are_in_trimestres1"}]},"entity__MomentoAtualizacao_atualização_ano_has_entity__MomentoAtualizacao_atualização_trimestre":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização.ano":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.ano"}},"entity__MomentoAtualizacao.atualização.trimestre":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.trimestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.ano"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.trimestre"}},"State":"Generated","Weight":0.99,"ID":"anos_have_trimestres1"},{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.trimestre"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.ano"}},"State":"Generated","Weight":0.99,"ID":"trimestres_have_anos1"},{"Preposition":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.trimestre"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"entity__MomentoAtualizacao.atualização.ano"}},"State":"Generated","Weight":0.99,"ID":"trimestres_are_in_anos1"}]},"entity__MomentoAtualizacao_atualização_hierarquia_de_data_has_entity__MomentoAtualizacao_atualização_dia":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização.hierarquia_de_data":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"}},"entity__MomentoAtualizacao.atualização.dia":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.dia"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.dia"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_dias1"}]},"entity__MomentoAtualizacao_atualização_hierarquia_de_data_has_entity__MomentoAtualizacao_atualização_mê":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização.hierarquia_de_data":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"}},"entity__MomentoAtualizacao.atualização.mê":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.mê"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.mê"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_mê1"}]},"entity__MomentoAtualizacao_atualização_hierarquia_de_data_has_entity__MomentoAtualizacao_atualização_trimestre":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização.hierarquia_de_data":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"}},"entity__MomentoAtualizacao.atualização.trimestre":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.trimestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.trimestre"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_trimestres1"}]},"entity__MomentoAtualizacao_atualização_hierarquia_de_data_has_entity__MomentoAtualizacao_atualização_ano":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização.hierarquia_de_data":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"}},"entity__MomentoAtualizacao.atualização.ano":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.ano"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.ano"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_anos1"}]},"entity__MomentoAtualizacao_atualização_has_hierarquia_de_data":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao.atualização":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização"}},"entity__MomentoAtualizacao.atualização.hierarquia_de_data":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao.atualização"},"Object":{"Role":"entity__MomentoAtualizacao.atualização.hierarquia_de_data"}},"State":"Generated","Weight":0.99,"ID":"atualizaçãos_have_hierarquia_de_data"}]},"dim_produto_data_execucao_mê_has_dim_produto_data_execucao_dia":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao.mê":{"Target":{"Entity":"dim_produto.data_execucao.mê"}},"dim_produto.data_execucao.dia":{"Target":{"Entity":"dim_produto.data_execucao.dia"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.mê"},"Object":{"Role":"dim_produto.data_execucao.dia"}},"State":"Generated","Weight":0.99,"ID":"mê_have_dias2"},{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.dia"},"Object":{"Role":"dim_produto.data_execucao.mê"}},"State":"Generated","Weight":0.99,"ID":"dias_have_mê2"},{"Preposition":{"Subject":{"Role":"dim_produto.data_execucao.dia"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"dim_produto.data_execucao.mê"}},"State":"Generated","Weight":0.99,"ID":"dias_are_in_mê"}]},"dim_produto_data_execucao_trimestre_has_dim_produto_data_execucao_mê":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao.trimestre":{"Target":{"Entity":"dim_produto.data_execucao.trimestre"}},"dim_produto.data_execucao.mê":{"Target":{"Entity":"dim_produto.data_execucao.mê"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.trimestre"},"Object":{"Role":"dim_produto.data_execucao.mê"}},"State":"Generated","Weight":0.99,"ID":"trimestres_have_mê2"},{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.mê"},"Object":{"Role":"dim_produto.data_execucao.trimestre"}},"State":"Generated","Weight":0.99,"ID":"mê_have_trimestres2"},{"Preposition":{"Subject":{"Role":"dim_produto.data_execucao.mê"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"dim_produto.data_execucao.trimestre"}},"State":"Generated","Weight":0.99,"ID":"mê_are_in_trimestres"}]},"dim_produto_data_execucao_ano_has_dim_produto_data_execucao_trimestre":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao.ano":{"Target":{"Entity":"dim_produto.data_execucao.ano"}},"dim_produto.data_execucao.trimestre":{"Target":{"Entity":"dim_produto.data_execucao.trimestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.ano"},"Object":{"Role":"dim_produto.data_execucao.trimestre"}},"State":"Generated","Weight":0.99,"ID":"anos_have_trimestres2"},{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.trimestre"},"Object":{"Role":"dim_produto.data_execucao.ano"}},"State":"Generated","Weight":0.99,"ID":"trimestres_have_anos2"},{"Preposition":{"Subject":{"Role":"dim_produto.data_execucao.trimestre"},"Prepositions":[{"in":{"State":"Generated"}}],"Object":{"Role":"dim_produto.data_execucao.ano"}},"State":"Generated","Weight":0.99,"ID":"trimestres_are_in_anos"}]},"dim_produto_data_execucao_hierarquia_de_data_has_dim_produto_data_execucao_dia":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao.hierarquia_de_data":{"Target":{"Entity":"dim_produto.data_execucao.hierarquia_de_data"}},"dim_produto.data_execucao.dia":{"Target":{"Entity":"dim_produto.data_execucao.dia"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.hierarquia_de_data"},"Object":{"Role":"dim_produto.data_execucao.dia"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_dias2"}]},"dim_produto_data_execucao_hierarquia_de_data_has_dim_produto_data_execucao_mê":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao.hierarquia_de_data":{"Target":{"Entity":"dim_produto.data_execucao.hierarquia_de_data"}},"dim_produto.data_execucao.mê":{"Target":{"Entity":"dim_produto.data_execucao.mê"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.hierarquia_de_data"},"Object":{"Role":"dim_produto.data_execucao.mê"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_mê2"}]},"dim_produto_data_execucao_hierarquia_de_data_has_dim_produto_data_execucao_trimestre":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao.hierarquia_de_data":{"Target":{"Entity":"dim_produto.data_execucao.hierarquia_de_data"}},"dim_produto.data_execucao.trimestre":{"Target":{"Entity":"dim_produto.data_execucao.trimestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.hierarquia_de_data"},"Object":{"Role":"dim_produto.data_execucao.trimestre"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_trimestres2"}]},"dim_produto_data_execucao_hierarquia_de_data_has_dim_produto_data_execucao_ano":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao.hierarquia_de_data":{"Target":{"Entity":"dim_produto.data_execucao.hierarquia_de_data"}},"dim_produto.data_execucao.ano":{"Target":{"Entity":"dim_produto.data_execucao.ano"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao.hierarquia_de_data"},"Object":{"Role":"dim_produto.data_execucao.ano"}},"State":"Generated","Weight":0.99,"ID":"hierarquia_de_data_have_anos2"}]},"dim_produto_data_execucao_has_hierarquia_de_data":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto.data_execucao":{"Target":{"Entity":"dim_produto.data_execucao"}},"dim_produto.data_execucao.hierarquia_de_data":{"Target":{"Entity":"dim_produto.data_execucao.hierarquia_de_data"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto.data_execucao"},"Object":{"Role":"dim_produto.data_execucao.hierarquia_de_data"}},"State":"Generated","Weight":0.99,"ID":"data_execucaos_have_hierarquia_de_data"}]},"dim_produto_has_dim_fornecedor":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_fornecedor":{"Target":{"Entity":"dim_fornecedor"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_fornecedor"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_dim_fornecedors"},{"Attribute":{"Subject":{"Role":"dim_fornecedor"},"Object":{"Role":"dim_produto"}},"State":"Generated","Weight":0.99,"ID":"dim_fornecedors_have_dim_produtos"}]},"fato_pedido_has_dim_calendario":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"dim_calendario":{"Target":{"Entity":"dim_calendario"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"dim_calendario"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_dim_calendarios"},{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"fato_pedido"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_fato_pedidos"}]},"fato_pedido_has_dim_produto":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"dim_produto":{"Target":{"Entity":"dim_produto"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"dim_produto"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_dim_produtos"},{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"fato_pedido"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_fato_pedidos"}]},"fato_pedido_has_dim_expedidor":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"dim_expedidor":{"Target":{"Entity":"dim_expedidor"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"dim_expedidor"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_dim_expedidors"},{"Attribute":{"Subject":{"Role":"dim_expedidor"},"Object":{"Role":"fato_pedido"}},"State":"Generated","Weight":0.99,"ID":"dim_expedidors_have_fato_pedidos"}]},"fato_pedido_has_dim_funcionario":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"dim_funcionario":{"Target":{"Entity":"dim_funcionario"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"dim_funcionario"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_dim_funcionarios"},{"Attribute":{"Subject":{"Role":"dim_funcionario"},"Object":{"Role":"fato_pedido"}},"State":"Generated","Weight":0.99,"ID":"dim_funcionarios_have_fato_pedidos"}]},"fato_pedido_has_dim_cliente":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"dim_cliente":{"Target":{"Entity":"dim_cliente"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"dim_cliente"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_dim_clientes"},{"Attribute":{"Subject":{"Role":"dim_cliente"},"Object":{"Role":"fato_pedido"}},"State":"Generated","Weight":0.99,"ID":"dim_clientes_have_fato_pedidos"}]},"dim_calendario_has_classificador_ano_me":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.classificador_ano_me":{"Target":{"Entity":"dim_calendario.classificador_ano_me"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.classificador_ano_me"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_classificador_ano_me"}]},"dim_calendario_has_mes_ano":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.mes_ano":{"Target":{"Entity":"dim_calendario.mes_ano"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.mes_ano"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_mes_anos"}]},"dim_calendario_has_fim_semana":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.fim_semana":{"Target":{"Entity":"dim_calendario.fim_semana"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.fim_semana"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_fim_semanas"}]},"dim_calendario_has_dia_semana_num":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.dia_semana_num":{"Target":{"Entity":"dim_calendario.dia_semana_num"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.dia_semana_num"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_dia_semana_nums"}]},"dim_calendario_has_nome_dia_semana":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.nome_dia_semana":{"Target":{"Entity":"dim_calendario.nome_dia_semana"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.nome_dia_semana"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_nome_dia_semanas"}]},"dim_calendario_has_nome_me":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.nome_me":{"Target":{"Entity":"dim_calendario.nome_me"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.nome_me"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_nome_me"}]},"dim_calendario_has_semestre":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.semestre":{"Target":{"Entity":"dim_calendario.semestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.semestre"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_semestres"}]},"dim_calendario_has_trimestre":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.trimestre":{"Target":{"Entity":"dim_calendario.trimestre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.trimestre"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_trimestres"}]},"dim_calendario_has_dia_ano":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.dia_ano":{"Target":{"Entity":"dim_calendario.dia_ano"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.dia_ano"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_dia_anos"}]},"dim_calendario_has_dia":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.dia":{"Target":{"Entity":"dim_calendario.dia"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.dia"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_dias"}]},"dim_calendario_has_me":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.me":{"Target":{"Entity":"dim_calendario.me"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.me"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_me"}]},"dim_calendario_has_ano":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.ano":{"Target":{"Entity":"dim_calendario.ano"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.ano"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_anos"}]},"dim_calendario_has_data_completa":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.data_completa":{"Target":{"Entity":"dim_calendario.data_completa"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.data_completa"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_data_completas"}]},"dim_calendario_has_sk_tempo":{"Binding":{"ConceptualEntity":"Dim_Calendario"},"State":"Generated","Roles":{"dim_calendario":{"Target":{"Entity":"dim_calendario"}},"dim_calendario.sk_tempo":{"Target":{"Entity":"dim_calendario.sk_tempo"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_calendario"},"Object":{"Role":"dim_calendario.sk_tempo"}},"State":"Generated","Weight":0.99,"ID":"dim_calendarios_have_sk_tempi"}]},"fato_pedido_has_entity__medida_média_itens_por_pedido":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"entity__medida.média_itens_por_pedido":{"Target":{"Entity":"entity__medida.média_itens_por_pedido"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"entity__medida.média_itens_por_pedido"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_média_itens_por_pedido"}]},"fato_pedido_has_entity__medida_ticket_médio_por_pedido":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"entity__medida.ticket_médio_por_pedido":{"Target":{"Entity":"entity__medida.ticket_médio_por_pedido"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"entity__medida.ticket_médio_por_pedido"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_ticket_médio_por_pedido"}]},"fato_pedido_has_entity__medida_quantidade_pedidos":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"entity__medida.quantidade_pedidos":{"Target":{"Entity":"entity__medida.quantidade_pedidos"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"entity__medida.quantidade_pedidos"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_quantidade_pedidos"}]},"fato_pedido_has_entity__medida_volume_pedidos":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"entity__medida.volume_pedidos":{"Target":{"Entity":"entity__medida.volume_pedidos"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"entity__medida.volume_pedidos"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_volume_pedidos"}]},"fato_pedido_has_entity__medida_valor_vendas":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"entity__medida.valor_vendas":{"Target":{"Entity":"entity__medida.valor_vendas"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"entity__medida.valor_vendas"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_valor_vendas"}]},"entity__MomentoAtualizacao_has_entity__medida_data_hora_atual":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao":{"Target":{"Entity":"entity__MomentoAtualizacao"}},"entity__medida.data_hora_atual":{"Target":{"Entity":"entity__medida.data_hora_atual"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao"},"Object":{"Role":"entity__medida.data_hora_atual"}},"State":"Generated","Weight":0.99,"ID":"Phrasing_MomentoAtualizacaos_have_data_hora_atual"}]},"entity__MomentoAtualizacao_has_atualização":{"Binding":{"ConceptualEntity":"_MomentoAtualizacao"},"State":"Generated","Roles":{"entity__MomentoAtualizacao":{"Target":{"Entity":"entity__MomentoAtualizacao"}},"entity__MomentoAtualizacao.atualização":{"Target":{"Entity":"entity__MomentoAtualizacao.atualização"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"entity__MomentoAtualizacao"},"Object":{"Role":"entity__MomentoAtualizacao.atualização"}},"State":"Generated","Weight":0.99,"ID":"Phrasing_MomentoAtualizacaos_have_atualizaçãos"}]},"dim_funcionario_has_nome_completo":{"Binding":{"ConceptualEntity":"Dim_Funcionario"},"State":"Generated","Roles":{"dim_funcionario":{"Target":{"Entity":"dim_funcionario"}},"dim_funcionario.nome_completo":{"Target":{"Entity":"dim_funcionario.nome_completo"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_funcionario"},"Object":{"Role":"dim_funcionario.nome_completo"}},"State":"Generated","Weight":0.99,"ID":"dim_funcionarios_have_nome_completos"}]},"dim_funcionario_has_cargo":{"Binding":{"ConceptualEntity":"Dim_Funcionario"},"State":"Generated","Roles":{"dim_funcionario":{"Target":{"Entity":"dim_funcionario"}},"dim_funcionario.cargo":{"Target":{"Entity":"dim_funcionario.cargo"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_funcionario"},"Object":{"Role":"dim_funcionario.cargo"}},"State":"Generated","Weight":0.99,"ID":"dim_funcionarios_have_cargoes"}]},"dim_funcionario_has_cod_funcionario":{"Binding":{"ConceptualEntity":"Dim_Funcionario"},"State":"Generated","Roles":{"dim_funcionario":{"Target":{"Entity":"dim_funcionario"}},"dim_funcionario.cod_funcionario":{"Target":{"Entity":"dim_funcionario.cod_funcionario"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_funcionario"},"Object":{"Role":"dim_funcionario.cod_funcionario"}},"State":"Generated","Weight":0.99,"ID":"dim_funcionarios_have_cod_funcionarios"}]},"dim_fornecedor_has_nome_empresa":{"Binding":{"ConceptualEntity":"Dim_Fornecedor"},"State":"Generated","Roles":{"dim_fornecedor":{"Target":{"Entity":"dim_fornecedor"}},"dim_fornecedor.nome_empresa":{"Target":{"Entity":"dim_fornecedor.nome_empresa"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_fornecedor"},"Object":{"Role":"dim_fornecedor.nome_empresa"}},"State":"Generated","Weight":0.99,"ID":"dim_fornecedors_have_nome_empresas"}]},"dim_fornecedor_has_cod_fornecedor":{"Binding":{"ConceptualEntity":"Dim_Fornecedor"},"State":"Generated","Roles":{"dim_fornecedor":{"Target":{"Entity":"dim_fornecedor"}},"dim_fornecedor.cod_fornecedor":{"Target":{"Entity":"dim_fornecedor.cod_fornecedor"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_fornecedor"},"Object":{"Role":"dim_fornecedor.cod_fornecedor"}},"State":"Generated","Weight":0.99,"ID":"dim_fornecedors_have_cod_fornecedors"}]},"dim_expedidor_has_nome_empresa":{"Binding":{"ConceptualEntity":"Dim_Expedidor"},"State":"Generated","Roles":{"dim_expedidor":{"Target":{"Entity":"dim_expedidor"}},"dim_expedidor.nome_empresa":{"Target":{"Entity":"dim_expedidor.nome_empresa"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_expedidor"},"Object":{"Role":"dim_expedidor.nome_empresa"}},"State":"Generated","Weight":0.99,"ID":"dim_expedidors_have_nome_empresas"}]},"dim_expedidor_has_cod_expedidor":{"Binding":{"ConceptualEntity":"Dim_Expedidor"},"State":"Generated","Roles":{"dim_expedidor":{"Target":{"Entity":"dim_expedidor"}},"dim_expedidor.cod_expedidor":{"Target":{"Entity":"dim_expedidor.cod_expedidor"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_expedidor"},"Object":{"Role":"dim_expedidor.cod_expedidor"}},"State":"Generated","Weight":0.99,"ID":"dim_expedidors_have_cod_expedidors"}]},"dim_cliente_has_pais":{"Binding":{"ConceptualEntity":"Dim_Cliente"},"State":"Generated","Roles":{"dim_cliente":{"Target":{"Entity":"dim_cliente"}},"dim_cliente.pais":{"Target":{"Entity":"dim_cliente.pais"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_cliente"},"Object":{"Role":"dim_cliente.pais"}},"State":"Generated","Weight":0.99,"ID":"dim_clientes_have_paises"}]},"dim_cliente_has_regiao":{"Binding":{"ConceptualEntity":"Dim_Cliente"},"State":"Generated","Roles":{"dim_cliente":{"Target":{"Entity":"dim_cliente"}},"dim_cliente.regiao":{"Target":{"Entity":"dim_cliente.regiao"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_cliente"},"Object":{"Role":"dim_cliente.regiao"}},"State":"Generated","Weight":0.99,"ID":"dim_clientes_have_regiaos"}]},"dim_cliente_has_nome_cargo":{"Binding":{"ConceptualEntity":"Dim_Cliente"},"State":"Generated","Roles":{"dim_cliente":{"Target":{"Entity":"dim_cliente"}},"dim_cliente.nome_cargo":{"Target":{"Entity":"dim_cliente.nome_cargo"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_cliente"},"Object":{"Role":"dim_cliente.nome_cargo"}},"State":"Generated","Weight":0.99,"ID":"dim_clientes_have_nome_cargoes"}]},"dim_cliente_has_nome_contato":{"Binding":{"ConceptualEntity":"Dim_Cliente"},"State":"Generated","Roles":{"dim_cliente":{"Target":{"Entity":"dim_cliente"}},"dim_cliente.nome_contato":{"Target":{"Entity":"dim_cliente.nome_contato"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_cliente"},"Object":{"Role":"dim_cliente.nome_contato"}},"State":"Generated","Weight":0.99,"ID":"dim_clientes_have_nome_contatos"}]},"dim_cliente_has_nome_empresa":{"Binding":{"ConceptualEntity":"Dim_Cliente"},"State":"Generated","Roles":{"dim_cliente":{"Target":{"Entity":"dim_cliente"}},"dim_cliente.nome_empresa":{"Target":{"Entity":"dim_cliente.nome_empresa"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_cliente"},"Object":{"Role":"dim_cliente.nome_empresa"}},"State":"Generated","Weight":0.99,"ID":"dim_clientes_have_nome_empresas"}]},"dim_cliente_has_cod_cliente":{"Binding":{"ConceptualEntity":"Dim_Cliente"},"State":"Generated","Roles":{"dim_cliente":{"Target":{"Entity":"dim_cliente"}},"dim_cliente.cod_cliente":{"Target":{"Entity":"dim_cliente.cod_cliente"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_cliente"},"Object":{"Role":"dim_cliente.cod_cliente"}},"State":"Generated","Weight":0.99,"ID":"dim_clientes_have_cod_clientes"}]},"dim_produto_has_status_desc":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.status_desc":{"Target":{"Entity":"dim_produto.status_desc"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.status_desc"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_status_descs"}]},"dim_produto_has_qtd_minimum":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.qtd_minimum":{"Target":{"Entity":"dim_produto.qtd_minimum"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.qtd_minimum"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_qtd_minima"}]},"dim_produto_has_qtd_reservada":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.qtd_reservada":{"Target":{"Entity":"dim_produto.qtd_reservada"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.qtd_reservada"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_qtd_reservadas"}]},"dim_produto_has_qtd_livre":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.qtd_livre":{"Target":{"Entity":"dim_produto.qtd_livre"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.qtd_livre"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_qtd_livres"}]},"dim_produto_has_preco_unitario":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.preco_unitario":{"Target":{"Entity":"dim_produto.preco_unitario"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.preco_unitario"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_preco_unitarios"}]},"dim_produto_has_data_execucao":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.data_execucao":{"Target":{"Entity":"dim_produto.data_execucao"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.data_execucao"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_data_execucaos"}]},"dim_produto_has_descricao":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.descricao":{"Target":{"Entity":"dim_produto.descricao"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.descricao"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_descricaos"}]},"dim_produto_has_nome_categoria":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.nome_categoria":{"Target":{"Entity":"dim_produto.nome_categoria"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.nome_categoria"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_nome_categorias"}]},"dim_produto_has_status":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.status":{"Target":{"Entity":"dim_produto.status"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.status"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_statuses"}]},"dim_produto_has_cod_categoria":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.cod_categoria":{"Target":{"Entity":"dim_produto.cod_categoria"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.cod_categoria"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_cod_categorias"}]},"dim_produto_has_nome_produto":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.nome_produto":{"Target":{"Entity":"dim_produto.nome_produto"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.nome_produto"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_nome_produtos"}]},"dim_produto_has_cod_produto":{"Binding":{"ConceptualEntity":"Dim_Produto"},"State":"Generated","Roles":{"dim_produto":{"Target":{"Entity":"dim_produto"}},"dim_produto.cod_produto":{"Target":{"Entity":"dim_produto.cod_produto"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"dim_produto"},"Object":{"Role":"dim_produto.cod_produto"}},"State":"Generated","Weight":0.99,"ID":"dim_produtos_have_cod_produtos"}]},"fato_pedido_has_val_pedido":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.val_pedido":{"Target":{"Entity":"fato_pedido.val_pedido"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.val_pedido"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_val_pedidos"}]},"fato_pedido_has_quantidade":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.quantidade":{"Target":{"Entity":"fato_pedido.quantidade"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.quantidade"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_quantidades"}]},"fato_pedido_has_pais_extedicao":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.pais_extedicao":{"Target":{"Entity":"fato_pedido.pais_extedicao"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.pais_extedicao"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_pais_extedicaos"}]},"fato_pedido_has_regiao_expedicao":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.regiao_expedicao":{"Target":{"Entity":"fato_pedido.regiao_expedicao"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.regiao_expedicao"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_regiao_expedicaos"}]},"fato_pedido_has_data_expedicao":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.data_expedicao":{"Target":{"Entity":"fato_pedido.data_expedicao"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.data_expedicao"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_data_expedicaos"}]},"fato_pedido_has_data_desejada":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.data_desejada":{"Target":{"Entity":"fato_pedido.data_desejada"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.data_desejada"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_data_desejadas"}]},"fato_pedido_has_data_pedido":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.data_pedido":{"Target":{"Entity":"fato_pedido.data_pedido"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.data_pedido"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_data_pedidos"}]},"fato_pedido_has_cod_pedido":{"Binding":{"ConceptualEntity":"Fato_Pedido"},"State":"Generated","Roles":{"fato_pedido":{"Target":{"Entity":"fato_pedido"}},"fato_pedido.cod_pedido":{"Target":{"Entity":"fato_pedido.cod_pedido"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"fato_pedido"},"Object":{"Role":"fato_pedido.cod_pedido"}},"State":"Generated","Weight":0.99,"ID":"fato_pedidos_have_cod_pedidos"}]}},"Agents":{"Internal":{"Version":"1.1.0"}}}
+				contentType: json
+
+		annotation __PBI_TimeIntelligenceEnabled = 1
+
+		annotation PBI_QueryOrder = ["Fato_Pedido","Dim_Produto","Dim_Cliente","Dim_Expedidor","Dim_Fornecedor","Dim_Funcionario","_MomentoAtualizacao","_Medidas","Dim_Calendario"]
+
+		annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
+

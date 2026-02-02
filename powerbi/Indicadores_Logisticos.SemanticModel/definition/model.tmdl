@@ -10,7 +10,7 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_QueryOrder = ["Fato_Pedido","Dim_Produto","Dim_Cliente","Dim_Expedidor","Dim_Fornecedor","Dim_Funcionario","_MomentoAtualizacao","_Medidas","Dim_Calendario"]
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
 
 ref table Fato_Pedido
 ref table DateTableTemplate_5a60aca5-42ff-4f14-990f-ca982a4400db

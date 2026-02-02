@@ -1,0 +1,50 @@
+createOrReplace
+
+	ref table _Medidas
+
+		measure 'Data Hora Atual' = ```
+				"Atualizado: " & SELECTEDVALUE(_MomentoAtualizacao[Atualização]) 
+				```
+			lineageTag: acda940a-8c68-4736-bdea-5b60390d45ce
+
+		measure 'Média Itens por Pedido' = ```
+				
+				DIVIDE(
+				    [Volume Pedidos], 
+				    DISTINCTCOUNT(Fato_Pedido[cod_pedido]),
+				    0
+				)
+				```
+			formatString: 0
+			lineageTag: f2b35ebd-35e8-4bf9-9c5a-2160f5081e19
+
+			annotation PBI_FormatHint = {"isDecimal":true}
+
+		measure 'Quantidade Pedidos' = DISTINCTCOUNT(Fato_Pedido[cod_pedido])
+			formatString: 0
+			lineageTag: d2186500-8dbc-4116-8c41-a422b29b9ab9
+
+		measure 'Ticket Médio por Pedido' = ```
+				
+				DIVIDE(
+				    [valorVendas], 
+				    DISTINCTCOUNT(Fato_Pedido[cod_pedido]),
+				    0
+				)
+				```
+			lineageTag: 1d701b07-1ff2-436b-949d-4290fb60e6b6
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure valorVendas = sum(Fato_Pedido[val_pedido])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 712c6544-9620-4832-94b6-b74e6a6e060a
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Volume Pedidos' = ```
+				sum(Fato_Pedido[quantidade]) 
+				```
+			formatString: #,0
+			lineageTag: 9385d422-a96b-4ec7-94d0-0edc102c6ea6
+
